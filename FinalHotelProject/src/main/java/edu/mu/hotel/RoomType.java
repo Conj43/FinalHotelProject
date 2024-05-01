@@ -35,12 +35,7 @@ public class RoomType {
         return roomTypes.get(name);
     }
 
-    //adjust room availability
-    public void decreaseRoomAvailability() {
-        if (roomsAvailable > 0) {
-            roomsAvailable--;
-        }
-    }
+
 
     public void increaseRoomAvailability() {
         if (roomsAvailable < totalRooms) {

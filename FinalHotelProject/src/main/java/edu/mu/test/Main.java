@@ -1,6 +1,8 @@
 package edu.mu.test;
 
 import edu.mu.*;
+import edu.mu.hotel.*;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
