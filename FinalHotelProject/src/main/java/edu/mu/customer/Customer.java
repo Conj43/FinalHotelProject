@@ -8,7 +8,7 @@ public class Customer {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String phoneNum;
+	private String phoneNum; //k
 	private String address;
 	private String birthDate; 
 	private int age;
