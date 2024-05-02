@@ -2,7 +2,7 @@ package edu.mu.hotel;
 
 import edu.mu.customer.Customer;
 
-public class CIOReciver {
+public class CIOReceiver {
 	public void checkin(Customer customer, Reservation reservation)
 	{
 		if(customer.getCustomerID() == reservation.getCustomerId())

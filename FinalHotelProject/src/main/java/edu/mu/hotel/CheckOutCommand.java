@@ -4,9 +4,9 @@ import edu.mu.customer.Customer;
 
 public class CheckOutCommand implements CIOCommand{
 
-	private CIOReciver cioReciver;
+	private CIOReceiver cioReciver;
 	
-	public CheckOutCommand(CIOReciver cioReciver) 
+	public CheckOutCommand(CIOReceiver cioReciver) 
 	{
 
 		this.cioReciver = cioReciver;
