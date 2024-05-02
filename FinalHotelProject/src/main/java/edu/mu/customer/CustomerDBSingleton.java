@@ -14,6 +14,7 @@ public class CustomerDBSingleton {
 	private Gson gson; //use gson to store data to json file
 	private final String filePath = "data/CustomerDatabase.json";
 	private static CustomerDBSingleton instance = null; //part of singleton design patters
+	private int lastCustomerId;
 
 
 	
@@ -33,8 +34,11 @@ public class CustomerDBSingleton {
 	private void loadDatabase() {
 		try(FileReader reader = new FileReader(filePath)){ //read file using file path
 			Customer[] array = gson.fromJson(reader, Customer[].class); //reads json into Customer array
+			if(array != null) {
 			for(Customer customer: array) {
 				customers.put(customer.getCustomerID(), customer); //puts each customer into has map
+				updateLastCustomerId(customer.getCustomerID());
+			}
 			}
 		}
 		catch(IOException e) {
@@ -44,6 +48,8 @@ public class CustomerDBSingleton {
 	
 	//method to add customer to database
 	 public void addCustomer(Customer customer) {
+		 int newCustomerId = generateCustomerId();
+			customer.setCustomerID(newCustomerId); // Assign the new customer ID
 	        customers.put(customer.getCustomerID(), customer); //adds it to hasmap
 	        saveDatabase(); //save changes
 	    }
@@ -62,6 +68,18 @@ public class CustomerDBSingleton {
 	    	}
 	    }
 	   
+	   
+	   
+	   private void updateLastCustomerId(int customerId) {
+			if (customerId > lastCustomerId) {
+				lastCustomerId = customerId;
+			}
+		}
+
+		// Generate a new customer ID
+		private int generateCustomerId() {
+			return ++lastCustomerId;
+		}
 	
 	
 	

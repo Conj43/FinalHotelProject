@@ -4,20 +4,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class RoomType {
+	
     protected String typeName;
-    protected int totalRooms;
     protected double basePrice;
+    protected int roomNumber;
+    protected boolean isOccupied;
     protected Map<String, Boolean> amenities;
     
+    
+    
     public RoomType() {
-    	 this.amenities = new HashMap<>();
+    	 
     }
 
-    protected RoomType(String typeName, int totalRooms, double basePrice, Map<String, Boolean> amenities) {
-    	this();
+    protected RoomType(String typeName,  double basePrice, int roomNumber, boolean isOccupied, Map<String, Boolean> amenities) {
+    	this.amenities = new HashMap<>();
         this.typeName = typeName;
-        this.totalRooms = totalRooms;
         this.basePrice = basePrice;
+        this.roomNumber = roomNumber;
+        this.isOccupied = isOccupied;
         this.amenities = amenities;
     }
 
@@ -38,9 +43,6 @@ public abstract class RoomType {
         return typeName;
     }
 
-    public int getTotalRooms() {
-        return totalRooms;
-    }
 
 
 
@@ -50,6 +52,18 @@ public abstract class RoomType {
 
     public Map<String, Boolean> getAmenities() {
         return amenities;
+    }
+    
+    public boolean isOccupied() {
+    	return isOccupied;
+    }
+    
+    public void setOccupied(boolean status) {
+    	this.isOccupied = status;
+    }
+    
+    public int getRoomNumber() {
+    	return roomNumber;
     }
     
     

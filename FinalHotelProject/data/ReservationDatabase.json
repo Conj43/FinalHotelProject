@@ -1,0 +1,19 @@
+[
+  {
+    "reservationId": 1,
+    "customerId": 1,
+    "checkInDate": "2024-05-05",
+    "checkOutDate": "2024-05-07",
+    "roomTypeName": "Deluxe Room",
+    "roomBasePrice": 125.0,
+    "roomNumber": 200,
+    "isRoomOccupied": false,
+    "amenities": {
+      "TV": true,
+      "Breakfast": true,
+      "Wifi": true,
+      "Jacuzzi": true
+    },
+    "isActive": true
+  }
+]

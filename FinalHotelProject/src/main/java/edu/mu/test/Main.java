@@ -1,13 +1,11 @@
 package edu.mu.test;
 
-import edu.mu.*;
+
 import edu.mu.customer.Customer;
 import edu.mu.customer.CustomerDBSingleton;
 import edu.mu.hotel.*;
-import edu.mu.hotel.rooms.RoomType;
-import edu.mu.hotel.rooms.RoomTypeManager;
 
-import java.time.LocalDate;
+
 import java.util.Scanner;
 
 
@@ -15,15 +13,12 @@ import java.util.Scanner;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
+    private static Customer customer;
 
     public static void main(String[] args) {
-        //initialize room types at the start
+        
     	
-    	int id = printIntro();
-    	if (id == -1) {
-    		System.out.println("Invalid input.");
-    	}
-    	else {
+    	printIntro();
     	
         //menu options
         while (true) {
@@ -38,7 +33,7 @@ public class Main {
             int option = scanner.nextInt();
             switch (option) {
                 case 1:
-                    makeReservation(id);
+                    makeReservation(customer.getCustomerID());
                     break;
                 case 2:
                     cancelReservation();
@@ -57,21 +52,25 @@ public class Main {
             }
         }
     	}
-    }
+    
 
 
     
     
     
-    private static int printIntro() {
+    private static void printIntro() {
     	System.out.println("-----Welcome to Group AA's Luxury Hotel-----\n\n");
     	System.out.println("Have you stayed with us before? (y/n): ");
         String response = scanner.next();
         if (response.equalsIgnoreCase("y")) {
             System.out.println("Please enter your customer ID: ");
             int customerId = scanner.nextInt();
+            CustomerDBSingleton customerManager = CustomerDBSingleton.getInstance();
+            customer = customerManager.getCustomer(customerId);
+            System.out.println("Welcome back, "+ customer.getFirstName() + "! We are so happy to see you again.");
+            return;
             
-        } else if (response.equalsIgnoreCase("n")) {
+        } if (response.equalsIgnoreCase("n")) {
            
             System.out.println("Please enter your first name: ");
             String firstName = scanner.next();
@@ -95,61 +94,83 @@ public class Main {
             System.out.println("Please enter your age: ");
             int age = scanner.nextInt();
             
+            System.out.println("Please enter your credit card number: ");
+            String cardNum = scanner.next();
+            
             
             System.out.println("Would you like to become a rewards member? (yes/no): ");
             String memberResponse = scanner.next();
             boolean isRewardsMember = memberResponse.equalsIgnoreCase("yes");
 
-            Customer customer = new Customer(firstName, lastName, email, phoneNum, address, birthdate, age, isRewardsMember, 0);
-            System.out.println("Congratulations! You have created a profile with us. Your CustomerID is " + customer.getCustomerID() + ". Make sure you remember it if you ever stay with us again!");
+            Customer newCustomer = new Customer(firstName, lastName, email, phoneNum, address, birthdate, age, isRewardsMember, 0, cardNum);
             CustomerDBSingleton customerDB = CustomerDBSingleton.getInstance();
-            customerDB.addCustomer(customer);
+            customerDB.addCustomer(newCustomer);
             customerDB.saveDatabase();
+            System.out.println("\n\nCongratulations! You have created a profile with us. Your CustomerID is " + newCustomer.getCustomerID() + ". Make sure you remember it if you ever stay with us again!");
+
+            customer = newCustomer;
+            return;
             
-            return customer.getCustomerID();
            
         } else {
             System.out.println("Invalid response. Please try again.");
             printIntro(); 
         }
-        return -1;
+        
     }
 //makes reservation
     private static void makeReservation(int customerID) {
         System.out.print("Enter room type (Standard, Deluxe, Suite): ");
         String roomType = scanner.next();
-        System.out.print("Enter check-in date (YYYY-MM-DD): ");
-        LocalDate checkInDate = LocalDate.parse(scanner.next());
-        System.out.print("Enter check-out date (YYYY-MM-DD): ");
-        LocalDate checkOutDate = LocalDate.parse(scanner.next());
         
-        Reservation reservation = ReservationManager.createReservation(customerID, roomType, checkInDate, checkOutDate);
+        System.out.print("Enter check-in date (YYYY-MM-DD): ");
+        String checkInDate = scanner.next();
+        
+        System.out.print("Enter check-out date (YYYY-MM-DD): ");
+        String checkOutDate = scanner.next();
+        
+        Reservation reservation = ReservationManager.getInstance().createReservation(customerID, roomType, checkInDate, checkOutDate);
+        
         if (reservation != null) {
-            System.out.println("Reservation made successfully: " + reservation);
+            System.out.println("Reservation made successfully: " + reservation.toString());
         } else {
             System.out.println("Failed to make a reservation. No available rooms.");
         }
     }
+    
+    
+    
+    
 //cancels reservation
     private static void cancelReservation() {
         System.out.print("Enter reservation ID to cancel: ");
         int reservationId = scanner.nextInt();
-        if (ReservationManager.cancelReservation(reservationId)) {
+       
+        if (ReservationManager.getInstance().cancelReservation(reservationId)) {
             System.out.println("Reservation cancelled successfully.");
         } else {
             System.out.println("Failed to cancel reservation. ID not found.");
         }
     }
+    
+    
+    
+    
+    
+    
 //checks availability
     private static void checkAvailability() {
         System.out.print("Enter room type to check (Standard, Deluxe, Suite): ");
         String roomType = scanner.next();
+        
         System.out.print("Enter check-in date (YYYY-MM-DD): ");
-        LocalDate checkInDate = LocalDate.parse(scanner.next());
+        String checkInDate = scanner.next();
+        
         System.out.print("Enter check-out date (YYYY-MM-DD): ");
-        LocalDate checkOutDate = LocalDate.parse(scanner.next());
-
-        boolean available = ReservationManager.checkAvailability(roomType, checkInDate, checkOutDate);
+        String checkOutDate = scanner.next();
+        
+        boolean available = ReservationManager.getInstance().checkAvailability(roomType, checkInDate, checkOutDate);
+        
         if (available) {
             System.out.println("Rooms are available.");
         } else {
@@ -157,13 +178,19 @@ public class Main {
         }
     }
 
+    
+    
+    
+    
     //confirms reservation
     private static void confirmReservation() {
         System.out.print("Enter reservation ID to confirm: ");
         int reservationId = scanner.nextInt();
-        Reservation reservation = ReservationManager.getReservationById(reservationId);
+        
+        Reservation reservation = ReservationManager.getInstance().getReservationById(reservationId);
+        
         if (reservation != null) {
-            System.out.println("Reservation details: " + reservation);
+            System.out.println("Reservation details: " + reservation.toString());
         } else {
             System.out.println("Reservation ID not found.");
         }

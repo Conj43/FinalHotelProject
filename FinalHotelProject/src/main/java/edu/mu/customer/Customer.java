@@ -4,7 +4,6 @@ package edu.mu.customer;
 public class Customer {
 	
 	//private attributes of customer
-	public static int customerIdCounter = 1;
 	private int customerID;
 	private String firstName;
 	private String lastName;
@@ -15,6 +14,7 @@ public class Customer {
 	private int age;
 	private boolean isRewardsMember;
 	private int rewardPoints;
+	private String cardNum;
 	
 	
 	//default constructor
@@ -27,9 +27,8 @@ public class Customer {
 	
 	//paramateized constructor
 	public Customer(String firstName, String lastName, String email, String phoneNum, String address,
-			String birthDate, int age, boolean isRewardsMember, int rewardPoints) {
+			String birthDate, int age, boolean isRewardsMember, int rewardPoints, String cardNum) {
 		super();
-		this.customerID = customerIdCounter++;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -39,16 +38,27 @@ public class Customer {
 		this.age = age;
 		this.isRewardsMember = isRewardsMember;
 		this.rewardPoints = rewardPoints;
+		this.cardNum = cardNum;
 	}
 
 
 	//getters and setters for each attribute
-	//but dont have setter for ID because we dont want to be able to change that
+
 	public int getCustomerID() {
 		return customerID;
 	}
+	
+	public void setCustomerID(int id) {
+		this.customerID = id;
+	}
 
-
+	public void setCardNum(String num) {
+		this.cardNum = num;
+	}
+	
+	public String getCardNum() {
+	return cardNum;
+	}
 
 	public String getFirstName() {
 		return firstName;

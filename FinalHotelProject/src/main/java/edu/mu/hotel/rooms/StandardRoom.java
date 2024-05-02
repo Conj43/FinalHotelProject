@@ -6,10 +6,10 @@ import java.util.Map;
 public class StandardRoom extends RoomType{
 
 	
-	
+	private static int roomNumberCounter = 100;
 	
 	public StandardRoom() {
-		super("Standard Room", 20, 100.0, getDefaultAmenities());
+		super("Standard Room", 100.0, roomNumberCounter++, false, getDefaultAmenities());
 
 
 }
@@ -32,9 +32,12 @@ public class StandardRoom extends RoomType{
 
 	@Override
 	public String toString() {
-		return "StandardRoom [typeName=" + typeName + ", totalRooms=" + totalRooms + ", basePrice=" + basePrice
-				+ ", amenities=" + amenities + "]";
+		return "StandardRoom [typeName=" + typeName + ", basePrice=" + basePrice + ", roomNumber=" + roomNumber
+				+ ", isOccupied=" + isOccupied + ", amenities=" + amenities + "]";
 	}
+
+
+	
 
 
 

@@ -5,9 +5,11 @@ import java.util.Map;
 
 public class SuiteRoom extends RoomType{
 
+	private static int roomNumberCounter = 300;
+	
 
 	public SuiteRoom() {
-			super("Suite Room", 3, 150.0, getDefaultAmenities());
+			super("Suite Room", 150.0, roomNumberCounter++, false, getDefaultAmenities());
 	
 	
 	}
@@ -32,9 +34,12 @@ public class SuiteRoom extends RoomType{
 
 		@Override
 		public String toString() {
-			return "SuiteRoom [typeName=" + typeName + ", totalRooms=" + totalRooms + ", basePrice=" + basePrice
-					+ ", amenities=" + amenities + "]";
+			return "SuiteRoom [typeName=" + typeName + ", basePrice=" + basePrice + ", roomNumber=" + roomNumber
+					+ ", isOccupied=" + isOccupied + ", amenities=" + amenities + "]";
 		}
+
+
+		
 
 
 

@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DeluxeRoom extends RoomType{
+	
+	private static int roomNumberCounter = 200;
 
 	public DeluxeRoom() {
-		super("Deluxe Room", 10, 125.0, getDefaultAmenities());
+		super("Deluxe Room",125.0, roomNumberCounter++, false, getDefaultAmenities());
 
 
 }
@@ -30,9 +32,12 @@ public class DeluxeRoom extends RoomType{
 
 	@Override
 	public String toString() {
-		return "DeluxeRoom [typeName=" + typeName + ", totalRooms=" + totalRooms + ", basePrice=" + basePrice
-				+ ", amenities=" + amenities + "]";
+		return "DeluxeRoom [typeName=" + typeName + ", basePrice=" + basePrice + ", roomNumber=" + roomNumber
+				+ ", isOccupied=" + isOccupied + ", amenities=" + amenities + "]";
 	}
+
+
+
 
 
 
