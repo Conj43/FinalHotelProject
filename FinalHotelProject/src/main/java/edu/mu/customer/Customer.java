@@ -13,6 +13,7 @@ public class Customer {
 	private String address;
 	private String birthDate; 
 	private int age;
+	private int roomNumber;
 	private boolean isRewardsMember;
 	private int rewardPoints;
 	
@@ -27,7 +28,7 @@ public class Customer {
 	
 	//paramateized constructor
 	public Customer(String firstName, String lastName, String email, String phoneNum, String address,
-			String birthDate, int age, boolean isRewardsMember, int rewardPoints) {
+			String birthDate, int age, int roomNumber, boolean isRewardsMember, int rewardPoints) {
 		super();
 		this.customerID = customerIdCounter++;
 		this.firstName = firstName;
@@ -37,9 +38,31 @@ public class Customer {
 		this.address = address;
 		this.birthDate = birthDate;
 		this.age = age;
+		this.roomNumber = roomNumber;
 		this.isRewardsMember = isRewardsMember;
 		this.rewardPoints = rewardPoints;
 	}
+
+
+	public int getRoomNumber() {
+		return roomNumber;
+	}
+
+
+
+
+	public void setRoomNumber(int roomNumber) {
+		this.roomNumber = roomNumber;
+	}
+
+
+
+
+	public int getRewardPoints() {
+		return rewardPoints;
+	}
+
+
 
 
 	//getters and setters for each attribute
