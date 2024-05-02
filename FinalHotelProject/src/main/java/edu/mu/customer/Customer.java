@@ -4,15 +4,17 @@ package edu.mu.customer;
 public class Customer {
 	
 	//private attributes of customer
+	public static int customerIdCounter = 1;
 	private int customerID;
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String phoneNum; //k
+	private String phoneNum; 
 	private String address;
 	private String birthDate; 
 	private int age;
 	private boolean isRewardsMember;
+	private int rewardPoints;
 	
 	
 	//default constructor
@@ -24,10 +26,10 @@ public class Customer {
 	
 	
 	//paramateized constructor
-	public Customer(int customerID, String firstName, String lastName, String email, String phoneNum, String address,
-			String birthDate, int age, boolean isRewardsMember) {
+	public Customer(String firstName, String lastName, String email, String phoneNum, String address,
+			String birthDate, int age, boolean isRewardsMember, int rewardPoints) {
 		super();
-		this.customerID = customerID;
+		this.customerID = customerIdCounter++;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -36,6 +38,7 @@ public class Customer {
 		this.birthDate = birthDate;
 		this.age = age;
 		this.isRewardsMember = isRewardsMember;
+		this.rewardPoints = rewardPoints;
 	}
 
 
@@ -140,6 +143,15 @@ public class Customer {
 	public void setRewardsMember(boolean isRewardsMember) {
 		this.isRewardsMember = isRewardsMember;
 	}
+	
+	
+	public void setRewardPoints(int points) {
+		this.rewardPoints = points;
+	}
+	
+	public int getRewardsPoints() {
+		return this.rewardPoints;
+	}
 
 
 
@@ -149,7 +161,7 @@ public class Customer {
 	public String toString() {
 		return "Customer [customerID=" + customerID + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
 				+ email + ", phoneNum=" + phoneNum + ", address=" + address + ", birthDate=" + birthDate + ", age="
-				+ age + ", isRewardsMember=" + isRewardsMember + "]";
+				+ age + ", isRewardsMember=" + isRewardsMember + ", rewardPoints=" + rewardPoints + "]";
 	}
 
 
