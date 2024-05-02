@@ -61,7 +61,5 @@ public class Reservation {
     public void setActive(boolean active) {
         isActive = active;
     }
-
-   
 }
 
