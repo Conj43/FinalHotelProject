@@ -14,6 +14,41 @@
       "Wifi": true,
       "Jacuzzi": true
     },
+    "isActive": false
+  },
+  {
+    "reservationId": 2,
+    "customerId": 2,
+    "checkInDate": "2024-05-01",
+    "checkOutDate": "2024-05-02",
+    "roomTypeName": "Deluxe Room",
+    "roomBasePrice": 125.0,
+    "roomNumber": 200,
+    "isRoomOccupied": false,
+    "amenities": {
+      "TV": true,
+      "Breakfast": true,
+      "Wifi": true,
+      "Jacuzzi": true
+    },
+    "isActive": false
+  },
+  {
+    "reservationId": 3,
+    "customerId": 5,
+    "checkInDate": "2024-05-01",
+    "checkOutDate": "2024-05-03",
+    "roomTypeName": "Suite Room",
+    "roomBasePrice": 150.0,
+    "roomNumber": 300,
+    "isRoomOccupied": false,
+    "amenities": {
+      "Free Spa": true,
+      "TV": true,
+      "Breakfast": true,
+      "Wifi": true,
+      "Jacuzzi": true
+    },
     "isActive": true
   }
 ]

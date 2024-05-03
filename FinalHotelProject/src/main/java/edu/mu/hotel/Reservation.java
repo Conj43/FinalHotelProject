@@ -6,6 +6,8 @@ import edu.mu.hotel.rooms.RoomType;
 
 
 public class Reservation {
+	
+	//reservation attributes
     private  int reservationId;
     private  int customerId;
     private  String checkInDate;
@@ -13,31 +15,27 @@ public class Reservation {
     private RoomType room;
     private boolean isActive; 
 
-    // Static list to hold all reservations
-    
 
+    
+    //default constructor
    public Reservation() {
 	
 	   
    }
 
-
-
-
-
+   //paramaterized constructor
 	public Reservation(int customerId, String checkInDate, String checkOutDate, RoomType room) { 
         this.customerId = customerId;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.setRoom(room);
         this.isActive = true;
-        
-        
+
     }
 
 
     
-    
+    //getters and setters
 
     public void setReservationId(int reservationId) {
 		this.reservationId = reservationId;
@@ -71,7 +69,7 @@ public class Reservation {
 
 
 
-	//Getters and Setters
+
     public int getReservationId() {
         return reservationId;
     }

@@ -9,6 +9,8 @@ import edu.mu.customer.CustomerDBSingleton;
 import edu.mu.hotel.*;
 import edu.mu.hotel.rooms.RoomType;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 
 
@@ -18,7 +20,7 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static Customer customer;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidInputException {
         
     	
     	printIntro();
@@ -30,8 +32,8 @@ public class Main {
             System.out.println("2. Cancel a Reservation");
             System.out.println("3. Check Room Availability");
             System.out.println("4. Confirm a Reservation");
-            System.out.println("6. Pay Bill");
-            System.out.println("7. Exit");
+            System.out.println("5. Pay Bill");
+            System.out.println("6. Exit");
             System.out.print("Select an option: ");
 
             int option = scanner.nextInt();
@@ -62,11 +64,60 @@ public class Main {
     
 
 
+    //registers a new customer by taking input and creating new customer and saving it to database
+    private static void registerCustomer() {
+    	System.out.println("Please enter your information to create a new profile:");
+        System.out.println("-----------------------------------------------------");
+    	
+        System.out.println("First Name: ");
+        String firstName = scanner.next();
+       
+        System.out.println("Last Name: ");
+        String lastName = scanner.next();
+        
+        System.out.println("Email: ");
+        String email = scanner.next();
+        
+        System.out.println("Phone Number: ");
+        String phoneNum = scanner.next();
+        
+        System.out.println("Address: ");
+        scanner.nextLine();
+        String address = scanner.nextLine();
+        
+        System.out.println("Birthdate (YYYY-MM-DD): ");
+        String birthdate = scanner.next();
+        
+        System.out.println("Age: ");
+        int age = scanner.nextInt();
+        
+        System.out.println("Credit Card Number: ");
+        String cardNum = scanner.next();
+        
+        
+        System.out.println("Would you like to become a rewards member? (y/n): ");
+        String memberResponse = scanner.next();
+        boolean isRewardsMember = memberResponse.equalsIgnoreCase("y");
+
+        Customer newCustomer = new Customer(firstName, lastName, email, phoneNum, address, birthdate, age, isRewardsMember, 0, cardNum);
+        CustomerDBSingleton customerDB = CustomerDBSingleton.getInstance();
+        customerDB.addCustomer(newCustomer);
+        customerDB.saveDatabase();
+        System.out.println("\n\nCongratulations! You have created a profile with us. Your CustomerID is " + newCustomer.getCustomerID() + ". Make sure you remember it if you ever stay with us again!\n\n");
+
+        customer = newCustomer;
+        return;
+    }
     
     
     
-    private static void printIntro() {
-    	System.out.println("-----Welcome to Group AA's Luxury Hotel-----\n\n");
+    //prints intro and sees if customer is new or not
+    private static void printIntro() throws InvalidInputException {
+    	
+    	
+    	try {
+    	
+    	System.out.println("\n\n-----Welcome to Group AA's Luxury Hotel-----\n--------------------------------------------\n");
     	System.out.println("Have you stayed with us before? (y/n): ");
         String response = scanner.next();
         if (response.equalsIgnoreCase("y")) {
@@ -74,61 +125,47 @@ public class Main {
             int customerId = scanner.nextInt();
             CustomerDBSingleton customerManager = CustomerDBSingleton.getInstance();
             customer = customerManager.getCustomer(customerId);
-            System.out.println("Welcome back, "+ customer.getFirstName() + "! We are so happy to see you again.");
+            
+            if (customer == null) {
+                throw new InvalidInputException("Customer ID not found.");
+            }
+            
+             System.out.println("Welcome back, "+ customer.getFirstName() + "! We are so happy to see you again.");
             return;
             
         } if (response.equalsIgnoreCase("n")) {
-           
-            System.out.println("Please enter your first name: ");
-            String firstName = scanner.next();
-           
-            System.out.println("Please enter your last name: ");
-            String lastName = scanner.next();
-            
-            System.out.println("Please enter your email: ");
-            String email = scanner.next();
-            
-            System.out.println("Please enter your phone number: ");
-            String phoneNum = scanner.next();
-            
-            System.out.println("Please enter your address: ");
-            scanner.nextLine();
-            String address = scanner.nextLine();
-            
-            System.out.println("Please enter your birthdate: ");
-            String birthdate = scanner.next();
-            
-            System.out.println("Please enter your age: ");
-            int age = scanner.nextInt();
-            
-            System.out.println("Please enter your credit card number: ");
-            String cardNum = scanner.next();
-            
-            
-            System.out.println("Would you like to become a rewards member? (yes/no): ");
-            String memberResponse = scanner.next();
-            boolean isRewardsMember = memberResponse.equalsIgnoreCase("yes");
+           registerCustomer();
 
-            Customer newCustomer = new Customer(firstName, lastName, email, phoneNum, address, birthdate, age, isRewardsMember, 0, cardNum);
-            CustomerDBSingleton customerDB = CustomerDBSingleton.getInstance();
-            customerDB.addCustomer(newCustomer);
-            customerDB.saveDatabase();
-            System.out.println("\n\nCongratulations! You have created a profile with us. Your CustomerID is " + newCustomer.getCustomerID() + ". Make sure you remember it if you ever stay with us again!");
-
-            customer = newCustomer;
-            return;
-            
            
         } else {
-            System.out.println("Invalid response. Please try again.");
-            printIntro(); 
+        	throw new InvalidInputException("Invalid response. Please enter 'y' or 'n'.");
+           
+        }
+    	} catch(InvalidInputException e){
+        	System.out.println("Error: " + e.getMessage());
+        	printIntro();
         }
         
     }
-//makes reservation
+
+    
+    
+    
+    //uses customer id and input to make new reservation
     private static void makeReservation(int customerID) {
-        System.out.print("Enter room type (Standard, Deluxe, Suite): ");
-        String roomType = scanner.next();
+    	String roomType;
+        while (true) {
+            System.out.print("Enter room type (Standard, Deluxe, Suite): ");
+            roomType = scanner.next(); // Normalize input
+            String lower = roomType.trim().toLowerCase();
+            
+            
+            if (lower.equals("standard") || lower.equals("deluxe") || lower.equals("suite")) {
+                break; 
+            } else {
+                System.out.println("Invalid room type. Please enter Standard, Deluxe, or Suite.");
+            }
+        }
         
         System.out.print("Enter check-in date (YYYY-MM-DD): ");
         String checkInDate = scanner.next();
@@ -144,6 +181,8 @@ public class Main {
             System.out.println("Failed to make a reservation. No available rooms.");
         }
     }
+    
+    
     
     
     
@@ -203,17 +242,37 @@ public class Main {
         }
     }
     
+    
+    
+    
+    
+    
+    
     private static void payCustomerBill(Customer customer)
     {
-    	 System.out.print("Enter amount of days stayed: ");
-         int days = scanner.nextInt();
-        //need to get the reservation with the customerId somehow
+    	 System.out.print("Enter Reservation ID: ");
+         int id = scanner.nextInt();
+        
+         Reservation reservation = ReservationManager.getInstance().getReservationById(id);
+         
         RoomType roomType = reservation.getRoom();    	
-    	double amount = roomType.calculateCost(days);
+    	double amount = roomType.calculateCost(calculateDaysStayed(reservation.getCheckInDate(), reservation.getCheckOutDate()));
     	Bill bill = new Bill(customer, amount);
     	PaymentStrategy creditCardPaymentStrategy = new CreditCardPayment();
     	bill.setPaymentStrategy(creditCardPaymentStrategy);
     	bill.payBill();
     }
+    
+    
+    
+    
+    
+    public static int calculateDaysStayed(LocalDate checkInDate, LocalDate checkOutDate) {
+    	
+        return (int) ChronoUnit.DAYS.between(checkInDate, checkOutDate);
+        
+    }
+    
+    
 }
 

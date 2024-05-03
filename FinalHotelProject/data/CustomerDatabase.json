@@ -50,5 +50,18 @@
     "isRewardsMember": true,
     "rewardPoints": 0,
     "cardNum": "12345"
+  },
+  {
+    "customerID": 5,
+    "firstName": "Bob",
+    "lastName": "Jacobs",
+    "email": "fdnkfd@gmail.com",
+    "phoneNum": "645-323-4322",
+    "address": "4342 lolly lane",
+    "birthDate": "2023-43-45",
+    "age": 21,
+    "isRewardsMember": true,
+    "rewardPoints": 0,
+    "cardNum": "13423423"
   }
 ]
