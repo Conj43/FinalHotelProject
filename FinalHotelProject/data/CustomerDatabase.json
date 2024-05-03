@@ -37,5 +37,18 @@
     "isRewardsMember": true,
     "rewardPoints": 0,
     "cardNum": "32323423"
+  },
+  {
+    "customerID": 4,
+    "firstName": "drew",
+    "lastName": "distler",
+    "email": "drew@",
+    "phoneNum": "573",
+    "address": "123",
+    "birthDate": "20",
+    "age": 20,
+    "isRewardsMember": true,
+    "rewardPoints": 0,
+    "cardNum": "12345"
   }
 ]
