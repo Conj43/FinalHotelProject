@@ -1,10 +1,13 @@
 package edu.mu.test;
 
 
+import edu.mu.billing.Bill;
+import edu.mu.billing.CreditCardPayment;
+import edu.mu.billing.PaymentStrategy;
 import edu.mu.customer.Customer;
 import edu.mu.customer.CustomerDBSingleton;
 import edu.mu.hotel.*;
-
+import edu.mu.hotel.rooms.RoomType;
 
 import java.util.Scanner;
 
@@ -27,7 +30,8 @@ public class Main {
             System.out.println("2. Cancel a Reservation");
             System.out.println("3. Check Room Availability");
             System.out.println("4. Confirm a Reservation");
-            System.out.println("5. Exit");
+            System.out.println("6. Pay Bill");
+            System.out.println("7. Exit");
             System.out.print("Select an option: ");
 
             int option = scanner.nextInt();
@@ -45,6 +49,9 @@ public class Main {
                     confirmReservation();
                     break;
                 case 5:
+                	payCustomerBill(customer);
+                    break;
+                case 6:
                     System.out.println("Exiting...");
                     return;
                 default:
@@ -194,6 +201,19 @@ public class Main {
         } else {
             System.out.println("Reservation ID not found.");
         }
+    }
+    
+    private static void payCustomerBill(Customer customer)
+    {
+    	 System.out.print("Enter amount of days stayed: ");
+         int days = scanner.nextInt();
+        //need to get the reservation with the customerId somehow
+        RoomType roomType = reservation.getRoom();    	
+    	double amount = roomType.calculateCost(days);
+    	Bill bill = new Bill(customer, amount);
+    	PaymentStrategy creditCardPaymentStrategy = new CreditCardPayment();
+    	bill.setPaymentStrategy(creditCardPaymentStrategy);
+    	bill.payBill();
     }
 }
 
