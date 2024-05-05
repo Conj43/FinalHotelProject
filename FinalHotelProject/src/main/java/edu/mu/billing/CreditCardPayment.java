@@ -4,15 +4,6 @@ import edu.mu.customer.Customer;
 
 public class CreditCardPayment implements PaymentStrategy {
 
-	
-//	private Customer customer;
-//	private double amount;
-//
-//	public CreditCardPayment(Customer customer, double amount) 
-//	{
-//		this.customer = customer;
-//		this.amount = amount;
-//	}
 
 	@Override
 	public void pay(Customer customer, double amount) {
