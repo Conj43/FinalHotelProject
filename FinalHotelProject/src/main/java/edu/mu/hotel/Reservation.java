@@ -1,6 +1,7 @@
 package edu.mu.hotel;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import edu.mu.hotel.rooms.RoomType;
 
@@ -14,6 +15,9 @@ public class Reservation {
     private  String checkOutDate;
     private RoomType room;
     private boolean isActive; 
+    private String accessCode;
+    private boolean isKeyCardActive;
+    private List<ServiceRequest> serviceRequests;
 
 
     
@@ -24,13 +28,13 @@ public class Reservation {
    }
 
    //paramaterized constructor
-	public Reservation(int customerId, String checkInDate, String checkOutDate, RoomType room) { 
+	public Reservation(int customerId, String checkInDate, String checkOutDate, RoomType room, List<ServiceRequests> requests) { 
         this.customerId = customerId;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.setRoom(room);
         this.isActive = true;
-
+        this.serviceRequests = requests;
     }
 
 
@@ -123,6 +127,10 @@ public class Reservation {
 	public void setRoom(RoomType room) {
 		this.room = room;
 	}
+	
+	public String getAccessCode() {
+        return accessCode;
+    }
 
 
 

@@ -15,6 +15,7 @@ public class RoomTypeManager {
 	private int totalStandardRooms = 20; //our hotel has 20 standard rooms
 	private int totalDeluxeRooms = 15; //15 deluxe rooms
 	private int totalSuiteRooms = 3; //3 suite rooms
+	private int totalConferenceRooms = 5;
 	
 	private int totalRooms = totalStandardRooms+totalDeluxeRooms+totalSuiteRooms; //total rooms is those all combined
 	
@@ -25,6 +26,7 @@ public class RoomTypeManager {
 	private List<StandardRoom> standardRooms; //we use a list to hold each of the rooms 
 	private List<DeluxeRoom> deluxeRooms;
 	private List<SuiteRoom> suiteRooms;
+	private List<ConferenceRoom> conferenceRooms;
 	
 	private List<RoomType> allRooms; //then we have a list with all roooms
 	
@@ -34,6 +36,7 @@ public class RoomTypeManager {
 		standardRooms = new ArrayList<>(); //insitiante each list as an arraylist
 		deluxeRooms = new ArrayList<>();
 		suiteRooms = new ArrayList<>();
+		conferenceRooms = new ArrayList<>();
 		allRooms = new ArrayList<>();
 		
 		for(int i = 0; i<totalStandardRooms; i++) { //using a loop add all standard rooms to its corresponding list and to the all rooms list
@@ -53,6 +56,13 @@ public class RoomTypeManager {
 			SuiteRoom room = new SuiteRoom();
 			suiteRooms.add(room);
 			allRooms.add(room);
+		}
+		
+		for(int i = 0; i<totalConferenceRooms; i++) { //conference rooms can have their own list, dont need to be added to other rooms
+			ConferenceRoom room = new ConferenceRoom();
+			conferenceRooms.add(room);
+			
+			
 		}
 
 		
@@ -122,6 +132,8 @@ public class RoomTypeManager {
     		return totalDeluxeRooms;
 		case "Suite":
     		return totalSuiteRooms;
+		case "Conference":
+    		return totalConferenceRooms;
 		default:
     		break;
     	}
