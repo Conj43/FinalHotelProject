@@ -4,8 +4,10 @@ package edu.mu.test;
 import edu.mu.billing.Bill;
 import edu.mu.billing.CreditCardPayment;
 import edu.mu.billing.PaymentStrategy;
+import edu.mu.billing.RedeemLoyaltyPoints;
 import edu.mu.customer.Customer;
 import edu.mu.customer.CustomerDBSingleton;
+import edu.mu.customer.LoyaltyMemberSignUp;
 import edu.mu.hotel.*;
 import edu.mu.hotel.rooms.RoomType;
 
@@ -103,6 +105,10 @@ public class Main {
         CustomerDBSingleton customerDB = CustomerDBSingleton.getInstance();
         customerDB.addCustomer(newCustomer);
         customerDB.saveDatabase();
+        if(isRewardsMember)
+        {
+        	LoyaltyMemberSignUp.signUp(newCustomer);
+        }
         System.out.println("\n\nCongratulations! You have created a profile with us. Your CustomerID is " + newCustomer.getCustomerID() + ". Make sure you remember it if you ever stay with us again!\n\n");
 
         customer = newCustomer;
@@ -258,9 +264,23 @@ public class Main {
         RoomType roomType = reservation.getRoom();    	
     	double amount = roomType.calculateCost(calculateDaysStayed(reservation.getCheckInDate(), reservation.getCheckOutDate()));
     	Bill bill = new Bill(customer, amount);
-    	PaymentStrategy creditCardPaymentStrategy = new CreditCardPayment();
-    	bill.setPaymentStrategy(creditCardPaymentStrategy);
-    	bill.payBill();
+    	
+    	System.out.println("Would you like to redeem rewards points to pay for your stay?");
+    	String memberResponse = scanner.next();
+        boolean useRewards = memberResponse.equalsIgnoreCase("y");
+        if(useRewards)
+        {
+        	PaymentStrategy rewardPaymentStrategy = new RedeemLoyaltyPoints();
+        	bill.setPaymentStrategy(rewardPaymentStrategy);
+        	bill.payBill();
+        }
+        else
+        {
+        	PaymentStrategy creditCardPaymentStrategy = new CreditCardPayment();
+        	bill.setPaymentStrategy(creditCardPaymentStrategy);
+        	bill.payBill();	
+		}
+    
     }
     
     
