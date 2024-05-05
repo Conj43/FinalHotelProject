@@ -34,8 +34,10 @@ public class Main {
             System.out.println("2. Cancel a Reservation");
             System.out.println("3. Check Room Availability");
             System.out.println("4. Confirm a Reservation");
-            System.out.println("5. Pay Bill");
-            System.out.println("6. Exit");
+            System.out.println("5. CheckIn");
+            System.out.println("5. CheckOut");
+            System.out.println("7. Pay Bill");
+            System.out.println("8. Exit");
             System.out.print("Select an option: ");
 
             int option = scanner.nextInt();
@@ -53,9 +55,15 @@ public class Main {
                     confirmReservation();
                     break;
                 case 5:
-                	payCustomerBill(customer);
+                	customerCheckIn();
                     break;
                 case 6:
+                	customerCheckOut();
+                    break;
+                case 7:
+                	payCustomerBill(customer);
+                    break;
+                case 8:
                     System.out.println("Exiting...");
                     return;
                 default:
@@ -63,10 +71,11 @@ public class Main {
             }
         }
     	}
-    
+  
 
 
-    //registers a new customer by taking input and creating new customer and saving it to database
+
+	//registers a new customer by taking input and creating new customer and saving it to database
     private static void registerCustomer() {
     	System.out.println("Please enter your information to create a new profile:");
         System.out.println("-----------------------------------------------------");
@@ -249,7 +258,38 @@ public class Main {
     }
     
     
-    
+    private static void customerCheckOut() {
+    	
+    	System.out.print("Enter Reservation ID: ");
+        int id = scanner.nextInt();
+       
+        Reservation reservation = ReservationManager.getInstance().getReservationById(id);
+        
+    	CIOReceiver receiver = new CIOReceiver();
+    	CIOCommand checkOutCommand = new CheckOutCommand(receiver);
+    	
+    			
+    	CIOInvoker manager = new CIOInvoker(null, checkOutCommand);
+    	manager.checkIn(customer, reservation);
+		
+	}
+
+
+
+	private static void customerCheckIn() {
+	
+		System.out.print("Enter Reservation ID: ");
+        int id = scanner.nextInt();
+       
+        Reservation reservation = ReservationManager.getInstance().getReservationById(id);
+        
+    	CIOReceiver receiver = new CIOReceiver();
+    	CIOCommand checkInCommand = new CheckInCommand(receiver);
+    	
+    			
+    	CIOInvoker manager = new CIOInvoker(checkInCommand, null);
+    	manager.checkIn(customer, reservation);
+	}
     
     
     
