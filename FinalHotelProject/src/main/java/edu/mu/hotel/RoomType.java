@@ -10,15 +10,19 @@ public class RoomType {
     private int roomsAvailable;
     private double basePrice;
     private Map<String, Boolean> amenities;
+    private String roomCategory; // "hotelRoom" or "conferenceRoom"
 
-    private RoomType(String typeName, int totalRooms, double basePrice) {
+    
+
+    public RoomType(String typeName, int totalRooms, double basePrice, String roomCategory) {
         this.typeName = typeName;
         this.totalRooms = totalRooms;
-        this.roomsAvailable = totalRooms; //initially, all rooms are available.
+        this.roomsAvailable = totalRooms;
         this.basePrice = basePrice;
+        this.roomCategory = roomCategory;
         this.amenities = new HashMap<>();
     }
-
+   
    
     
     public static synchronized RoomType createRoomType(String typeName, int totalRooms, double basePrice) {
@@ -26,6 +30,7 @@ public class RoomType {
         if (roomType == null) {
             roomType = new RoomType(typeName, totalRooms, basePrice);
             roomTypes.put(typeName, roomType);
+            
         }
         return roomType;
     }
@@ -77,6 +82,14 @@ public class RoomType {
     public Map<String, Boolean> getAmenities() {
         return amenities;
     }
+    
+    public String getRoomCategory() {
+        return roomCategory;
+    }
+    
+    public void setRoomCategory(String roomCategory) {
+        this.roomCategory = roomCategory;
+    }
 
     @Override
     public String toString() {
@@ -88,4 +101,15 @@ public class RoomType {
                 ", amenities=" + amenities +
                 '}';
     }
+    
+    public double getDynamicPrice(LocalDate checkInDate) {
+        return PricingManager.calculatePrice(this, checkInDate);
+    }
+    
+    public interface PricingStrategy {
+        double calculatePrice(RoomType roomType, LocalDate date);
+    }
+    
+    
+    
 }

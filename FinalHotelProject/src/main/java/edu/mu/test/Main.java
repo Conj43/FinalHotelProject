@@ -103,5 +103,25 @@ public class Main {
             System.out.println("Reservation ID not found.");
         }
     }
+    
+    public static void checkInGuest(int reservationId) {
+        Reservation reservation = RoomTypeManager.getReservationById(reservationId);
+        if (reservation != null) {
+            reservation.checkIn();
+            System.out.println("Guest checked in. Key card activated.");
+        } else {
+            System.out.println("Reservation ID not found.");
+        }
+    }
+    
+    public static void checkOutGuest(int reservationId) {
+        Reservation reservation = RoomTypeManager.getReservationById(reservationId);
+        if (reservation != null) {
+            reservation.checkOut();
+            System.out.println("Guest checked out. Key card deactivated.");
+        } else {
+            System.out.println("Reservation ID not found.");
+        }
+    }
 }
 
