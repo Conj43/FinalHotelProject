@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,8 +77,10 @@ public class ReservationManager {
     
     
     //creates a reservation using customer ID, room type, check in and check out
-    public Reservation createReservation(int customerId, String roomType, String checkIn, String checkOut) {
+    public Reservation createReservation(int customerId, String roomType, String checkIn, String checkOut, List<ServiceRequest> serviceRequests) {
 
+    	
+    	
         if (!checkAvailability(roomType, checkIn, checkOut)) { //check availability for room type
             System.out.println("No available rooms for the selected dates.");
             return null;
@@ -89,38 +92,52 @@ public class ReservationManager {
             return null; //return null if no availability
         }
 
-        Reservation reservation = new Reservation(customerId, checkIn, checkOut, room);
+        Reservation reservation = new Reservation(customerId, checkIn, checkOut, room, serviceRequests);
         addReservationToDatabase(reservation);
         return reservation; //return new reservation if it is created
     }
-
-    
-   
-
-
     
     
+    
+
+    
+
     
     
     
     //method to check availibility
     public boolean checkAvailability(String roomType, String checkIn, String checkOut) {
-        
-        RoomTypeManager roomTypeManager = RoomTypeManager.getInstance();
-        int totalRoomsOfType = roomTypeManager.getTotalRooms(roomType); //get total number of rooms of given type
-        LocalDate checkInDate = LocalDate.parse(checkIn); //change to LocalDate type
-        LocalDate checkOutDate = LocalDate.parse(checkOut);
-        //count how many rooms are booked for the given room type during the requested date range
-        long bookedRooms = reservations.values().stream()
-            .filter(reservation -> reservation.isActive() &&
-                                  reservation.getRoomType().equals(roomType) &&
-                                  reservation.getCheckOutDate().isAfter(checkInDate) &&
-                                  reservation.getCheckInDate().isBefore(checkOutDate))
-            .count();
+        try {
+            LocalDate checkInDate = LocalDate.parse(checkIn); //parse check-in date
+            LocalDate checkOutDate = LocalDate.parse(checkOut); //parse check-out date
+            
+            if (checkInDate.isAfter(checkOutDate)) {
+                System.out.println("Error: Check-in date cannot be after check-out date.");
+                return false;
+            }
+            
+            RoomTypeManager roomTypeManager = RoomTypeManager.getInstance();
+            int totalRoomsOfType = roomTypeManager.getTotalRooms(roomType); //get total number of rooms of given type
+            
+            //count how many rooms are booked for the given room type during the requested date range
+            long bookedRooms = reservations.values().stream()
+                    .filter(reservation -> reservation.isActive() &&
+                            reservation.getRoomType().equals(roomType) &&
+                            (
+                                (reservation.getCheckOutDate().isAfter(checkInDate) && reservation.getCheckInDate().isBefore(checkOutDate)) || // Overlapping dates
+                                (reservation.getCheckInDate().isEqual(checkInDate) || reservation.getCheckOutDate().isEqual(checkOutDate)) // Check-in or check-out date coincides with another reservation's date
+                            ))
+                    .count();
 
-        //check if there are any rooms left
-        return bookedRooms < totalRoomsOfType; //returns false if no availability, true if there is availability
+
+            //check if there are any rooms left
+            return bookedRooms < totalRoomsOfType; //returns false if no availability, true if there is availability
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: Invalid date format. Please enter dates in YYYY-MM-DD format.");
+            return false;
+        }
     }
+
 
 
     
@@ -191,6 +208,10 @@ public Reservation convertToReservation(GsonReservation temp) { //converts GsonR
 		reservation.setCheckInDate(temp.getCheckInDate());
 		reservation.setCheckOutDate(temp.getCheckOutDate());
 		reservation.setRoom(room);
+		reservation.setActive(temp.isActive());
+		reservation.setAccessCode(temp.getAccessCode());
+		reservation.setKeyCardActive(temp.isKeyCardActive());
+		reservation.setServiceRequests(temp.getServiceRequests());
 		
 		return reservation; //return the reservation
 		}
@@ -216,8 +237,11 @@ public Reservation convertToReservation(GsonReservation temp) { //converts GsonR
 			 for (Map.Entry<Integer, Reservation> entry : reservations.entrySet()) { //loop through entries in map
 		        	Reservation reservation = entry.getValue();
 		        	RoomType room  = reservation.getRoom();
-		        	temp.add(new GsonReservation(reservation.getReservationId(), reservation.getCustomerId(), reservation.getCheckInDateString(), reservation.getCheckOutDateString(), 
-		        			room.getTypeName(), room.getBasePrice(), room.getRoomNumber(), room.isOccupied(), room.getAmenities(), reservation.isActive())); //add new gson reservation to temp
+		        	temp.add(new GsonReservation(reservation.getReservationId(), reservation.getCustomerId(), 
+		        			reservation.getCheckInDateString(), reservation.getCheckOutDateString(), 
+		        			room.getTypeName(), room.getBasePrice(), room.getRoomNumber(), room.isOccupied(), 
+		        			room.getAmenities(), reservation.isActive(), reservation.getAccessCode(), 
+		        			reservation.isKeyCardActive(), reservation.getServiceRequests())); //add new gson reservation to temp
 		 }
 			 if (!temp.isEmpty()) {
 				 return temp; //if temp isnt empty we return it
@@ -254,6 +278,22 @@ public Reservation convertToReservation(GsonReservation temp) { //converts GsonR
 			return lastReservationId;
 		}
 		
+		
+		public List<Reservation> generatePastHistory(LocalDate startDate, LocalDate endDate) {
+	        List<Reservation> pastHistory = new ArrayList<>(); // List to store past history
+
+	        // Iterate through reservations
+	        for (Reservation reservation : reservations.values()) {
+	            LocalDate checkInDate = reservation.getCheckInDate();
+	            LocalDate checkOutDate = reservation.getCheckOutDate();
+
+	            // Check if the reservation falls within the specified date range
+	            if (checkInDate.isBefore(endDate) && checkOutDate.isAfter(startDate)) {
+	                pastHistory.add(reservation); // Add the reservation to the past history list
+	            }
+	        }
+	        return pastHistory; // Return the past history report as a list of reservations
+	    }
     
     
     

@@ -1,5 +1,6 @@
 package edu.mu.hotel.rooms;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,9 +26,8 @@ public class ConferenceRoom extends RoomType{
     }
 
 	@Override
-	public double calculateCost(int days) {
-		
-		return this.basePrice*days;
+	public double calculateCost(int days, LocalDate checkIn) {
+		return getDynamicPrice(checkIn) * days;
 	}
 
 }

@@ -2,53 +2,76 @@
   {
     "reservationId": 1,
     "customerId": 1,
-    "checkInDate": "2024-05-05",
-    "checkOutDate": "2024-05-07",
-    "roomTypeName": "Deluxe Room",
-    "roomBasePrice": 125.0,
-    "roomNumber": 200,
+    "checkInDate": "2024-01-01",
+    "checkOutDate": "2024-01-04",
+    "roomTypeName": "Standard Room",
+    "roomBasePrice": 100.0,
+    "roomNumber": 100,
     "isRoomOccupied": false,
     "amenities": {
       "TV": true,
       "Breakfast": true,
-      "Wifi": true,
-      "Jacuzzi": true
+      "Wifi": true
     },
-    "isActive": false
+    "isActive": true,
+    "accessCode": "Guest has not checked in yet.",
+    "isKeyCardActive": false,
+    "serviceRequests": [
+      {
+        "requestType": "N/A",
+        "quantity": 0,
+        "notes": "N/A"
+      }
+    ]
   },
   {
     "reservationId": 2,
-    "customerId": 2,
-    "checkInDate": "2024-05-01",
-    "checkOutDate": "2024-05-02",
-    "roomTypeName": "Deluxe Room",
-    "roomBasePrice": 125.0,
-    "roomNumber": 200,
+    "customerId": 1,
+    "checkInDate": "2024-01-01",
+    "checkOutDate": "2024-01-04",
+    "roomTypeName": "Standard Room",
+    "roomBasePrice": 100.0,
+    "roomNumber": 101,
     "isRoomOccupied": false,
     "amenities": {
       "TV": true,
       "Breakfast": true,
-      "Wifi": true,
-      "Jacuzzi": true
+      "Wifi": true
     },
-    "isActive": false
+    "isActive": true,
+    "accessCode": "Guest has not checked in yet.",
+    "isKeyCardActive": false,
+    "serviceRequests": [
+      {
+        "requestType": "N/A",
+        "quantity": 0,
+        "notes": "N/A"
+      }
+    ]
   },
   {
     "reservationId": 3,
-    "customerId": 5,
-    "checkInDate": "2024-05-01",
-    "checkOutDate": "2024-05-03",
-    "roomTypeName": "Suite Room",
-    "roomBasePrice": 150.0,
-    "roomNumber": 300,
+    "customerId": 1,
+    "checkInDate": "2024-01-02",
+    "checkOutDate": "2024-01-07",
+    "roomTypeName": "Standard Room",
+    "roomBasePrice": 100.0,
+    "roomNumber": 102,
     "isRoomOccupied": false,
     "amenities": {
-      "Free Spa": true,
       "TV": true,
       "Breakfast": true,
-      "Wifi": true,
-      "Jacuzzi": true
+      "Wifi": true
     },
-    "isActive": true
+    "isActive": false,
+    "accessCode": "HJ9M0O",
+    "isKeyCardActive": false,
+    "serviceRequests": [
+      {
+        "requestType": "Pillows",
+        "quantity": 6,
+        "notes": "I\u0027d like more pillows."
+      }
+    ]
   }
 ]

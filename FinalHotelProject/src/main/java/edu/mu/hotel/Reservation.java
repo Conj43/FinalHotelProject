@@ -28,13 +28,15 @@ public class Reservation {
    }
 
    //paramaterized constructor
-	public Reservation(int customerId, String checkInDate, String checkOutDate, RoomType room, List<ServiceRequests> requests) { 
+	public Reservation(int customerId, String checkInDate, String checkOutDate, RoomType room, List<ServiceRequest> serviceRequests) { 
         this.customerId = customerId;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.setRoom(room);
         this.isActive = true;
-        this.serviceRequests = requests;
+        this.serviceRequests = serviceRequests;
+        this.isKeyCardActive = false;
+        this.accessCode = "Guest has not checked in yet.";
     }
 
 
@@ -56,6 +58,22 @@ public class Reservation {
 
 
 
+
+	public boolean isKeyCardActive() {
+		return isKeyCardActive;
+	}
+
+	public void setKeyCardActive(boolean isKeyCardActive) {
+		this.isKeyCardActive = isKeyCardActive;
+	}
+
+	public void setAccessCode(String accessCode) {
+		this.accessCode = accessCode;
+	}
+
+	public void setServiceRequests(List<ServiceRequest> serviceRequests) {
+		this.serviceRequests = serviceRequests;
+	}
 
 	public void setCheckInDate(String checkInDate) {
 		this.checkInDate = checkInDate;
@@ -131,16 +149,28 @@ public class Reservation {
 	public String getAccessCode() {
         return accessCode;
     }
+	
+	 public void addServiceRequest(ServiceRequest request) {
+	        serviceRequests.add(request);
+	    }
+
+	    public List<ServiceRequest> getServiceRequests() {
+	        return serviceRequests;
+	    }
+
+		@Override
+		public String toString() {
+			return "Reservation [reservationId=" + reservationId + ", customerId=" + customerId + ", checkInDate="
+					+ checkInDate + ", checkOutDate=" + checkOutDate + ",\nroom=" + room + ", \nisActive=" + isActive
+					+ ", accessCode=" + accessCode + ", isKeyCardActive=" + isKeyCardActive + ", serviceRequests="
+					+ serviceRequests + "]";
+		}
 
 
 
 
 
-	@Override
-	public String toString() {
-		return "\n\nReservation \n[reservationId = " + reservationId + ", \ncustomerId = " + customerId + ", \ncheckInDate = "
-				+ checkInDate + ", \ncheckOutDate = " + checkOutDate + ", \nroom = " + room.toString() + ", \nisActive = " + isActive + "]";
-	}
+	
     
 	
     

@@ -87,6 +87,25 @@ public class RoomTypeManager {
 		return null; //return null if not found or there is an error
 	}
 	
+	
+	public List<? extends RoomType> getRooms(String roomType){
+		switch (roomType) {
+		case "Standard":
+			return standardRooms;
+		case "Deluxe":
+			return deluxeRooms;
+		case "Suite":
+			return suiteRooms;
+		case "Conference":
+			return conferenceRooms;
+		default:
+			return null;
+			
+		}
+	}
+	
+	
+	
 
 	
 	public RoomType findAvailableRooms(String roomType, String checkIn, String checkOut) {
@@ -103,12 +122,17 @@ public class RoomTypeManager {
 	        case "Suite":
 	            rooms = suiteRooms;
 	            break;
+	        case "Conference":
+	            rooms = conferenceRooms;
+	            break;
 	        default:
 	            return null;
 	    }
 
 	    for (RoomType room : rooms) {
-	        if (!room.isOccupied() && !room.isReserved(room.getRoomNumber(),checkIn,  checkOut)) {
+	    	System.out.println(room.getRoomNumber());
+	        if (!room.isOccupied() && !room.isReserved(room.getRoomNumber(), checkIn,  checkOut)) {
+	        	
 	            return room;
 	        }
 	    }

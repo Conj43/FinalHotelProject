@@ -1,5 +1,6 @@
 package edu.mu.hotel;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -19,6 +20,9 @@ public class GsonReservation {
     private boolean isRoomOccupied;
     private Map<String, Boolean> amenities;
     private boolean isActive;
+    private String accessCode = "need to set";
+    private boolean isKeyCardActive;
+    private List<ServiceRequest> serviceRequests;
 	
 	
 
@@ -28,9 +32,14 @@ public class GsonReservation {
 
 
 
+	
+
+
+
 	public GsonReservation(int reservationId, int customerId, String checkInDate, String checkOutDate,
 			String roomTypeName, double roomBasePrice, int roomNumber, boolean isRoomOccupied,
-			Map<String, Boolean> amenities, boolean isActive) {
+			Map<String, Boolean> amenities, boolean isActive, String accessCode, boolean isKeyCardActive,
+			List<ServiceRequest> serviceRequests) {
 		super();
 		this.reservationId = reservationId;
 		this.customerId = customerId;
@@ -42,7 +51,74 @@ public class GsonReservation {
 		this.isRoomOccupied = isRoomOccupied;
 		this.amenities = amenities;
 		this.isActive = isActive;
+		this.accessCode = accessCode;
+		this.isKeyCardActive = isKeyCardActive;
+		this.serviceRequests = serviceRequests;
 	}
+
+
+
+
+
+
+
+	public String getAccessCode() {
+		return accessCode;
+	}
+
+
+
+
+
+
+
+	public void setAccessCode(String accessCode) {
+		this.accessCode = accessCode;
+	}
+
+
+
+
+
+
+
+	public boolean isKeyCardActive() {
+		return isKeyCardActive;
+	}
+
+
+
+
+
+
+
+	public void setKeyCardActive(boolean isKeyCardActive) {
+		this.isKeyCardActive = isKeyCardActive;
+	}
+
+
+
+
+
+
+
+	public List<ServiceRequest> getServiceRequests() {
+		return serviceRequests;
+	}
+
+
+
+
+
+
+
+	public void setServiceRequests(List<ServiceRequest> serviceRequests) {
+		this.serviceRequests = serviceRequests;
+	}
+
+
+
+
 
 
 
