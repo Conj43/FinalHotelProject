@@ -118,10 +118,16 @@ public class RoomTypeManager {
 
 
 	
-	public void increaseRoomAvailability(RoomType room) { //increases availibility and sets room to unoccupied
+	public void increaseRoomAvailability(RoomType room) { //increases availability and sets room to unoccupied
 		
 		room.setOccupied(false); //used when someone checks out
 		totalRoomsAvailable++;
+    }
+	
+	public void decreaseRoomAvailability(RoomType room) { //increases availability and sets room to unoccupied
+		
+		room.setOccupied(true); //used when someone checks in
+		totalRoomsAvailable--;
     }
     
     public int getTotalRooms(String type) {
