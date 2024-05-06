@@ -28,51 +28,56 @@ public class Main {
         
     	
     	printIntro();
-    	
-        //menu options
-        while (true) {
-            System.out.println("\nHotel Reservation System");
-            System.out.println("1. Make a Reservation");
-            System.out.println("2. Cancel a Reservation");
-            System.out.println("3. Check Room Availability");
-            System.out.println("4. Confirm a Reservation");
-            System.out.println("5. Check In");
-            System.out.println("6. Check Out & Pay Bill");
-            System.out.println("7. Generate Report of Past Reservations");
-            System.out.println("8. Exit");
-            System.out.print("Select an option: ");
-
-            int option = scanner.nextInt();
-            switch (option) {
-                case 1:
-                    makeReservation(customer.getCustomerID());
-                    break;
-                case 2:
-                    cancelReservation();
-                    break;
-                case 3:
-                    checkAvailability();
-                    break;
-                case 4:
-                    confirmReservation();
-                    break;
-                case 5:
-                	customerCheckIn();
-                    break;
-                case 6:
-                	customerCheckOut();
-                    break;
-                case 7:
-                	getReport();
-                	break;
-                case 8:
-                	System.out.println("Exiting...");
-                    return;
-                default:
-                    System.out.println("Invalid option. Please try again.");
-            }
-        }
+    	menuOptions();
+        
+       
     	}
+    
+    
+    private static void menuOptions() throws InvalidInputException {
+    	 while (true) {
+             System.out.println("\nHotel Reservation System");
+             System.out.println("1. Make a Reservation");
+             System.out.println("2. Cancel a Reservation");
+             System.out.println("3. Check Room Availability");
+             System.out.println("4. Confirm a Reservation");
+             System.out.println("5. Check In");
+             System.out.println("6. Check Out & Pay Bill");
+             System.out.println("7. Generate Report of Past Reservations");
+             System.out.println("8. Exit");
+             System.out.print("Select an option: ");
+
+             int option = scanner.nextInt();
+             switch (option) {
+                 case 1:
+                     makeReservation(customer.getCustomerID());
+                     break;
+                 case 2:
+                     cancelReservation();
+                     break;
+                 case 3:
+                     checkAvailability();
+                     break;
+                 case 4:
+                     confirmReservation();
+                     break;
+                 case 5:
+                 	customerCheckIn();
+                     break;
+                 case 6:
+                 	customerCheckOut();
+                     break;
+                 case 7:
+                 	getReport();
+                 	break;
+                 case 8:
+                 	System.out.println("Exiting...");
+                     return;
+                 default:
+                     System.out.println("Invalid option. Please try again.");
+             }
+         }
+    }
   
 
 
