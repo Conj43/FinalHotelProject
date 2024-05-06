@@ -353,7 +353,7 @@ public class Main {
         Reservation reservation = ReservationManager.getInstance().getReservationById(id);
         
         if (reservation != null) {
-            //check if the current customer matches the customer who booked the reservation
+            
             if (customer != null && reservation.getCustomerId() == customer.getCustomerID()) {
                 CIOReceiver receiver = new CIOReceiver();
                 CIOCommand checkInCommand = new CheckInCommand(receiver);
