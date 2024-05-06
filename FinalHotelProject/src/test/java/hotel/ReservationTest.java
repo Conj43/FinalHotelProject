@@ -1,5 +1,6 @@
 package edu.mu.hotel;
 
+import edu.mu.hotel.*;
 import edu.mu.hotel.rooms.RoomType;
 import edu.mu.hotel.rooms.StandardRoom;
 import org.junit.jupiter.api.BeforeEach;
