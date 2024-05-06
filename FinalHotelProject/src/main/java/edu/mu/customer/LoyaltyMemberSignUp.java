@@ -9,8 +9,10 @@ public class LoyaltyMemberSignUp {
 	public LoyaltyMemberSignUp(Customer customer) {
 		this.customer = customer;
 	}
+	
 	/*
 	 * when a customer chooses to sign up this will be printed out to the command line and they will be given 20 points
+	 *  @param Customer is the customer who is being signed up
 	 */
 	public static void signUp(Customer customer) {
 		System.out.println("Thank you for joining our rewards program! \n We really value our Cusomers here.\n"

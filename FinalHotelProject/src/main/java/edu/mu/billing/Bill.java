@@ -13,6 +13,8 @@ public class Bill {
 
 	/*
 	 * the constructor will be used to initialize the bill
+	 * @param Customer is the customer who is being billed
+	 * @param amount is the total they are being billed for
 	 */
 	public Bill(Customer customer, double amount) {
 		this.customer = customer;
@@ -21,6 +23,7 @@ public class Bill {
 
 	/*
 	 * this is used to set the correct payment strategy for paying the bill
+	 * @param paymentStrategy is the strategy being used to pay for the bill
 	 */
 	public void setPaymentStrategy(PaymentStrategy paymentStrategy)
 	{

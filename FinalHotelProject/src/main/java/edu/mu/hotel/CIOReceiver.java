@@ -10,6 +10,11 @@ public class CIOReceiver {
 	
 	RoomTypeManager manager = RoomTypeManager.getInstance(); //gets the instance of the current manager
 	
+	/*
+	 * This function perform the logic behind checking in
+	 * @param customer is the guest who is checking in 
+	 * @parm reservation is the reservation they are checking into
+	 */
 	public void checkin(Customer customer, Reservation reservation)
 	{
 		if(customer.getCustomerID() == reservation.getCustomerId()) //makes sure it has the correct customer and reservation before proceeding
@@ -25,7 +30,11 @@ public class CIOReceiver {
 			customer.setRewardPoints(customer.getRewardsPoints()+40);
 		}
 	}
-	
+	/*
+	 * This function perform the logic behind checking out
+	 * @param customer is the guest who is checking out
+	 * @parm reservation is the reservation they are checking out of
+	 */
 	public void checkout(Customer customer, Reservation reservation)
 	{
 		if(customer.getCustomerID() == reservation.getCustomerId())//makes sure it has the correct customer and reservation before proceeding

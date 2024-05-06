@@ -5,6 +5,8 @@ import edu.mu.customer.Customer;
 public class RedeemLoyaltyPoints implements PaymentStrategy{
 	/*
 	 * this strategy is for when customers want to redeem rewards points
+	 * @param Customer is the customer who is being billed
+	 * @param amount is the total they are being billed for
 	 */
 	@Override
 	public void pay(Customer customer, double amount) {
@@ -13,6 +15,8 @@ public class RedeemLoyaltyPoints implements PaymentStrategy{
 	
 	/*
 	 * this method is used to perform the logic behind paying with loyalty points
+	 * @param Customer is the customer who is being billed
+	 * @param amount is the total they are being billed for
 	 */
 	public void payWithPoints(Customer customer,double amount)
 	{

@@ -9,6 +9,7 @@ public class CheckOutCommand implements CIOCommand{
 	private CIOReceiver cioreceiver;
 	/*
 	 * the constructor inits the receiver
+	 * @param cioReceiver is where the command is sent
 	 */
 	public CheckOutCommand(CIOReceiver cioreceiver) 
 	{
@@ -18,6 +19,8 @@ public class CheckOutCommand implements CIOCommand{
 	
 	/*
 	 * this method overwrites execute from the interface and performs the call to go ahead with the checkout
+	 * @param customer is the guest who is checking out
+	 * @parm reservation is the reservation they are checking out of
 	 */
 	@Override
 	public void execute(Customer customer, Reservation reservation) {
