@@ -21,7 +21,9 @@ class CIOReceiverTest {
         reservation.setReservationId(1); // Example reservation ID
     }
 
-    // Positive test for checking in
+    /*
+     *  Positive test for checking in
+     */
     @Test
     void testCheckIn() {
         assertDoesNotThrow(() -> cioReceiver.checkin(customer, reservation));
@@ -31,7 +33,9 @@ class CIOReceiverTest {
         assertEquals(40, customer.getRewardsPoints());
     }
 
-    // Positive test for checking out
+    /*
+     *  Positive test for checking out
+     */
     @Test
     void testCheckOut() {
         // First, check in

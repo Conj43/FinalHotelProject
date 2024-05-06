@@ -20,7 +20,9 @@ class CheckInCommandTest {
         reservation = new Reservation();
     }
 
-    // Positive test for checking in
+    /*
+     * Positive test for checking in
+     */
     @Test
     void testExecuteCheckIn() {
         assertDoesNotThrow(() -> checkInCommand.execute(customer, reservation));

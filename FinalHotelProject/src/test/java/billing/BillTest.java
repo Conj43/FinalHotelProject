@@ -19,7 +19,9 @@ class BillTest {
         bill = new Bill(customer, 100.0);
     }
 
-    // Positive test for setting payment strategy
+    /*
+     * Positive test for setting payment strategy
+     */
     @Test
     void testSetPaymentStrategy() {
         PaymentStrategy paymentStrategy = new CreditCardPayment();
@@ -27,13 +29,17 @@ class BillTest {
         assertNotNull(bill.payBill());
     }
 
-    // Negative test for paying bill without setting payment strategy
+    /*
+     * Negative test for paying bill without setting payment strategy
+     */
     @Test
     void testPayBillWithoutPaymentStrategy() {
         assertFalse(bill.payBill());
     }
 
-    // Negative test for paying bill with invalid payment strategy
+    /*
+     *  Negative test for paying bill with invalid payment strategy
+     */
     @Test
     void testPayBillWithInvalidPaymentStrategy() {
         bill.setPaymentStrategy(null);

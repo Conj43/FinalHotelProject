@@ -5,7 +5,9 @@ import edu.mu.customer.*;
 
 class LoyaltyMemberSignUpTest {
 	
-	//positive test for signing up for loyalty points
+	/*
+	 * positive test for signing up for loyalty points
+	 */
 
 	@Test
 	void testSignUp()

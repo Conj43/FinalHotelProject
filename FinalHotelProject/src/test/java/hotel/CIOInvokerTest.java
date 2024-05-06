@@ -21,13 +21,17 @@ class CIOInvokerTest {
         reservation = new Reservation();
     }
 
-    // Positive test for checking in
+    /*
+     *  Positive test for checking in
+     */
     @Test
     void testCheckIn() {
         assertDoesNotThrow(() -> cioInvoker.checkIn(customer, reservation));
     }
 
-    // Positive test for checking out
+    /*
+     *  Positive test for checking out
+     */
     @Test
     void testCheckOut() {
         assertDoesNotThrow(() -> cioInvoker.checkOut(customer, reservation));

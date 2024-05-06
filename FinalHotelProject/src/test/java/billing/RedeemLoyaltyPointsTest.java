@@ -17,7 +17,9 @@ class RedeemLoyaltyPointsTest {
         customer = new Customer();
     }
 
-    // Positive test for paying bill using loyalty points
+   /*
+    * Positive test for paying bill using loyalty points
+    */
     @Test
     void testPayBillWithPoints() {
         // Assuming the customer has enough points
@@ -27,7 +29,9 @@ class RedeemLoyaltyPointsTest {
         assertEquals(0, customer.getRewardsPoints()); // Customer should have 0 points after redeeming
     }
 
-    // Negative test for paying bill with insufficient loyalty points
+   /*
+    *  Negative test for paying bill with insufficient loyalty points
+    */
     @Test
     void testPayBillWithInsufficientPoints() {
         // Assuming the customer doesn't have enough points

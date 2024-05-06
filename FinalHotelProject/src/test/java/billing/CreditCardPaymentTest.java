@@ -17,7 +17,9 @@ class CreditCardPaymentTest {
         customer = new Customer();
     }
 
-    // Positive test for paying bill using credit card payment strategy
+    /*
+     *  Positive test for paying bill using credit card payment strategy
+     */
     @Test
     void testPayBill() {
         double amount = 100.0;
