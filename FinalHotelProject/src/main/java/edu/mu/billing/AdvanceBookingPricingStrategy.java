@@ -5,6 +5,9 @@ import java.time.temporal.ChronoUnit;
 
 import edu.mu.hotel.rooms.RoomType;
 
+/*
+ * class is for the advance booking strategy pricing
+ */
 public class AdvanceBookingPricingStrategy implements PricingStrategy {
 	
 

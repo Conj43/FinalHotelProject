@@ -1,9 +1,13 @@
 package edu.mu.customer;
 
-
+/*
+ * class that is a customer that allows people to make reservations
+ */
 public class Customer {
 	
-	//private attributes of customer
+	/*
+	 * attributes for customer
+	 */
 	private int customerID;
 	private String firstName;
 	private String lastName;
@@ -49,7 +53,9 @@ public class Customer {
 	}
 
 
-	//getters and setters for each attribute
+	/*
+	 * getters and setters for all attributes
+	 */
 
 	public int getCustomerID() {
 		return customerID;
@@ -172,14 +178,23 @@ public class Customer {
 
 
 
-	//generated to string method
-	
+	/*
+	 * to string method that returns a string of all customer attributes
+	 */
 	@Override
 	public String toString() {
 		return "Customer [customerID=" + customerID + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
 				+ email + ", phoneNum=" + phoneNum + ", address=" + address + ", birthDate=" + birthDate + ", age="
-				+ age + ", isRewardsMember=" + isRewardsMember + ", rewardPoints=" + rewardPoints + "]";
+				+ age + ", isRewardsMember=" + isRewardsMember + ", rewardPoints=" + rewardPoints + ", cardNum="
+				+ cardNum + "]";
 	}
+
+
+
+	
+	
+	
+	
 
 
 

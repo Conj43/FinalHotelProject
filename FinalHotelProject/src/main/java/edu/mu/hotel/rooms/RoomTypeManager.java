@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
+/*
+ * class to keep track of rooms 
+ */
 public class RoomTypeManager {
 	
 	
@@ -15,7 +17,7 @@ public class RoomTypeManager {
 	private int totalStandardRooms = 30; //our hotel has 30 standard rooms
 	private int totalDeluxeRooms = 15; //15 deluxe rooms
 	private int totalSuiteRooms = 8; //8 suite rooms
-	private int totalConferenceRooms = 5;
+	private int totalConferenceRooms = 5; //5 conference rooms
 	
 	private int totalRooms = totalStandardRooms+totalDeluxeRooms+totalSuiteRooms; //total rooms is those all combined
 	
@@ -31,6 +33,9 @@ public class RoomTypeManager {
 	private List<RoomType> allRooms; //then we have a list with all roooms
 	
 	
+	/*
+	 * private constructor called by get instance
+	 */
 	private RoomTypeManager() { //make our constructor private for singleton pattern
 		
 		standardRooms = new ArrayList<>(); //insitiante each list as an arraylist
@@ -68,7 +73,10 @@ public class RoomTypeManager {
 		
 	}
 
-	
+	/*
+	 * get instance method to help with singelton pattern
+	 * @return an instace of room type manager
+	 */
 	public static RoomTypeManager getInstance() {
 		if(instance == null) { //if instance isn't being used, create a new one 
 			instance = new RoomTypeManager();
@@ -76,6 +84,12 @@ public class RoomTypeManager {
 		return instance; //return the instance
 	}
 	
+	
+	/*
+	 * get a room by room number
+	 * @param int room number
+	 * @return room with given room number
+	 */
 	public RoomType getRoomByRoomNum(int num) { //returns a room using the room number to identify it, each room has unique room number
 		if(!allRooms.isEmpty()) { //make sure list is not empty
 			for(RoomType room : allRooms) { //loop through all rooms
@@ -87,9 +101,13 @@ public class RoomTypeManager {
 		return null; //return null if not found or there is an error
 	}
 	
-	
+	/*
+	 * method to get list of corresponding room types
+	 * @param string room type
+	 * @return list of rooms of given type
+	 */
 	public List<? extends RoomType> getRooms(String roomType){
-		switch (roomType) {
+		switch (roomType) { //use switch to see which kind we need
 		case "Standard":
 			return standardRooms;
 		case "Deluxe":
@@ -99,7 +117,7 @@ public class RoomTypeManager {
 		case "Conference":
 			return conferenceRooms;
 		default:
-			return null;
+			return null; //return null of not found
 			
 		}
 	}
@@ -107,7 +125,11 @@ public class RoomTypeManager {
 	
 	
 
-	
+	/*
+	 * method to find available rooms
+	 * @param string room type
+	 * @param string of check in and check in date
+	 */
 	public RoomType findAvailableRooms(String roomType, String checkIn, String checkOut) {
 	    
 
@@ -129,11 +151,11 @@ public class RoomTypeManager {
 	            return null;
 	    }
 
-	    for (RoomType room : rooms) {
+	    for (RoomType room : rooms) { //loop thru corrext type
 	    	
-	        if (!room.isOccupied() && !room.isReserved(room.getRoomNumber(), checkIn,  checkOut)) {
+	        if (!room.isOccupied() && !room.isReserved(room.getRoomNumber(), checkIn,  checkOut)) { //check if room is occupied and reserved
 	        	
-	            return room;
+	            return room; //return a room that is available
 	        }
 	    }
 
@@ -141,20 +163,36 @@ public class RoomTypeManager {
 	}
 
 
-	
+	/*
+	 * method to increase availability
+	 * @param room that someone is checking out of
+	 * 
+	 */
 	public void increaseRoomAvailability(RoomType room) { //increases availability and sets room to unoccupied
 		
 		room.setOccupied(false); //used when someone checks out
 		totalRoomsAvailable++;
     }
 	
-	public void decreaseRoomAvailability(RoomType room) { //increases availability and sets room to unoccupied
+	/*
+	 * method to decrease availability
+	 * @param room that someone is checking in 
+	 * 
+	 */
+	public void decreaseRoomAvailability(RoomType room) { //decreases availability and sets room to occupised
 		
 		room.setOccupied(true); //used when someone checks in
 		totalRoomsAvailable--;
     }
     
-    public int getTotalRooms(String type) {
+	
+	
+	/*
+	 * method to return number of total rooms of each type
+	 * @param string type of room
+	 * @return int number of rooms of given type
+	 */
+    public int getTotalRooms(String type) { //switch to find correct type
     	switch (type) {
     	case "Standard":
     		return totalStandardRooms;
@@ -167,20 +205,26 @@ public class RoomTypeManager {
 		default:
     		break;
     	}
-    	return -1;
+    	return -1; //return -1 if type was not found
     }
     
+    
+    /*
+     * method to get total available rooms
+     * @return int number of rooms available
+     */
     public int getTotalRoomsAvailable() {
     	return totalRoomsAvailable;
     }
 
     
     
-    public RoomType getRoomTypeByName(String roomName) {
-        // Implement logic to find RoomType by name and return it
-        return null;
-    }
     
+    /*
+     * method to get name of room from room object
+     * @param room type object
+     * @return string of room type
+     */
     public String getRoomName(RoomType roomType) {
         return roomType.getTypeName();
     }

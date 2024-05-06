@@ -16,17 +16,21 @@ import com.google.gson.GsonBuilder;
 import edu.mu.hotel.rooms.RoomType;
 import edu.mu.hotel.rooms.RoomTypeManager;
 
-
+/*
+ * singelton class that manages reservations and saves to json file
+ */
 public class ReservationManager {
 	
-	private static ReservationManager instance = null; //part of singleton design patters
+	private static ReservationManager instance = null; //part of singleton design pattern
 	private Map<Integer, Reservation> reservations; 
 	private Gson gson; //use gson to store data to json file
 	private final String filePath = "data/ReservationDatabase.json"; //file path to database json file
 	private int lastReservationId; //keeps track of reservation id so we do not repeat id's
 	
 	
-
+	/*
+	 * private constructor called by getInstance method
+	 */
 	private ReservationManager() {
 		reservations = new HashMap<>(); // initialize reservations map
         gson = new GsonBuilder().setPrettyPrinting().create(); // initialize gson with pretty print so json file looks nice
@@ -36,23 +40,29 @@ public class ReservationManager {
 	
 	
 	
-	
+	/*
+	 * static method to get instance of ReservationManager
+	 * @return an instance of reservation manager
+	 */
 	public static ReservationManager getInstance() {
 		if(instance == null) { //if instance isn't being used, create a new one 
 			instance = new ReservationManager();
 		}
-		return instance; //return the instance
+		return instance; //return the instance, can only have one instane
 	}
 	
 	
 	
 	
 	
-	 //get all active reservations
+	 /*
+	  * method to get a list of all active reservations
+	  * @return list of active reservations
+	  */
     public List<Reservation> getActiveReservations() {
         List<Reservation> activeReservations = new ArrayList<>(); //make list for active reservations
         
-        if(!reservations.isEmpty()) { //,ake sure reservations isnt empty
+        if(!reservations.isEmpty()) { //make sure reservations isnt empty
         	
         for (Map.Entry<Integer, Reservation> entry : reservations.entrySet()) {
         	Reservation reservation = entry.getValue();
@@ -68,7 +78,11 @@ public class ReservationManager {
     
     
     
- 
+ /*
+  * method to get reservation by id
+  * @param int reservation id
+  * @return reservation object with reservation id, null if doesnt exist
+  */
     public Reservation getReservationById(int reservationId) { //returns a reservation by ID
         return reservations.get(reservationId);
     }
@@ -76,14 +90,21 @@ public class ReservationManager {
     
     
     
-    //creates a reservation using customer ID, room type, check in and check out
+    /*
+     * creates reservation and saves to json file and adds to reservations map
+     * @param int customer id
+     * @param String room type for reservation
+     * @param String check in and check out, which should be in correct date format
+     * @param list of service requests
+     * @return reservation object that was created, null if failed
+     */
     public Reservation createReservation(int customerId, String roomType, String checkIn, String checkOut, List<ServiceRequest> serviceRequests) {
 
     	
     	
         if (!checkAvailability(roomType, checkIn, checkOut)) { //check availability for room type
             System.out.println("No available rooms for the selected dates.");
-            return null;
+            return null; //return null if no availability
         }
 
         RoomType room = RoomTypeManager.getInstance().findAvailableRooms(roomType, checkIn, checkOut); //returns an available room if there are any
@@ -97,23 +118,22 @@ public class ReservationManager {
         return reservation; //return new reservation if it is created
     }
     
-    
-    
 
     
-
-    
-    
-    
-    //method to check availibility
+    /*
+     * method to check availability in date range for given room type
+     * @param String room type
+     * @param String check in and check out date in correct date format
+     * @return true if there is availability, false if no availability
+     */
     public boolean checkAvailability(String roomType, String checkIn, String checkOut) {
         try {
             LocalDate checkInDate = LocalDate.parse(checkIn); //parse check-in date
             LocalDate checkOutDate = LocalDate.parse(checkOut); //parse check-out date
             
-            if (checkInDate.isAfter(checkOutDate)) {
+            if (checkInDate.isAfter(checkOutDate)) {//make sure check out isnt before check in
                 System.out.println("Error: Check-in date cannot be after check-out date.");
-                return false;
+                return false; //return false if true
             }
             
             RoomTypeManager roomTypeManager = RoomTypeManager.getInstance();
@@ -127,21 +147,14 @@ public class ReservationManager {
                 if (reservation.isActive() &&
                     reservation.getRoomType().equals(roomType) &&
                     (
-                        // Partial overlap
                         (reservation.getCheckInDate().isBefore(checkOutDate) && reservation.getCheckOutDate().isAfter(checkInDate)) || 
-                        // Complete overlap
                         (reservation.getCheckInDate().isEqual(checkInDate) && reservation.getCheckOutDate().isEqual(checkOutDate)) || 
-                        // Complete overlap
                         (reservation.getCheckInDate().isAfter(checkInDate) && reservation.getCheckOutDate().isBefore(checkOutDate))
                     )) {
-                    bookedRooms++;
+                    bookedRooms++; //keep track of booked rooms in given range of given type
                 }
             }
 
-
-
-
-            //check if there are any rooms left
             return bookedRooms < totalRoomsOfType; //returns false if no availability, true if there is availability
         } catch (DateTimeParseException e) {
             System.out.println("Error: Invalid date format. Please enter dates in YYYY-MM-DD format.");
@@ -153,7 +166,11 @@ public class ReservationManager {
 
     
     
-    
+    /*
+     * cancels reservation by setting isactive to false
+     * @param int reservation id of reservation to cancel
+     * @return true if success, false if failure
+     */
     public boolean cancelReservation(int reservationId) { //calcels reservation by using reservation id
         for (Map.Entry<Integer, Reservation> entry : reservations.entrySet()) {
         	Reservation reservation = entry.getValue();
@@ -168,24 +185,27 @@ public class ReservationManager {
     
     
     
-    //method to confirm reservation details
+    /*
+     * method to confirm booking, prints out info
+     * @param reservation object
+     * @return string of the reservation, else an error if it is not active
+     */
     public String confirmBooking(Reservation reservation) {
         if (!reservation.isActive()) {
             return "Reservation ID " + reservation.getReservationId() + " is cancelled."; //if reservation isn't active, print it out to user
         }
         //display or return reservation details
-        return "Reservation confirmed: ID " + reservation.getReservationId() +
-                "\nCustomer ID: " + reservation.getCustomerId() +
-                "\nRoom Type: " + reservation.getRoomType() +
-                "\nCheck-In Date: " + reservation.getCheckInDate() +
-                "\nCheck-Out Date: " + reservation.getCheckOutDate();
+        return reservation.toString();
     }
     
     
     
     
     
-    
+    /*
+     * method to load json file data into reservations map
+     * 
+     */
     private void loadDatabase() { //loads reservation database into map
         try (FileReader reader = new FileReader(filePath)) { // read file using file path
             GsonReservation[] gsonReservations = gson.fromJson(reader, GsonReservation[].class); // reads json into GsonReservation array
@@ -205,7 +225,11 @@ public class ReservationManager {
 
     
     
-    
+    /*
+     * converts a gson reservation to reservation
+     * @param gson reservtion to be converted
+     * @return reservation object with same attributes of the param value
+     */
 public Reservation convertToReservation(GsonReservation temp) { //converts GsonReservation to a reservation
 		
 		if (temp != null) { //make sure temp is valid
@@ -232,7 +256,10 @@ public Reservation convertToReservation(GsonReservation temp) { //converts GsonR
 	}
     
     
-
+	/*
+	 * adds reservation to json database and saves it
+	 * @param a reservation object to be added
+	 */
 	 public void addReservationToDatabase(Reservation reservation) {
 		 	int newReservationId = generateReservationId(); //get the new reservation id
 		 	reservation.setReservationId(newReservationId); //set the new reservation id
@@ -241,7 +268,10 @@ public Reservation convertToReservation(GsonReservation temp) { //converts GsonR
 	    }
 
 	 
-	 //changes a reservation to GsonReservation and returns it
+	 /*
+	  * changes the reservations map into a list of gson reservations to be saved to json fule
+	  * @return list of Gson reservations
+	  */
 	 private List<GsonReservation> changeToGson() {
 		 List<GsonReservation> temp = new ArrayList<>(); //make new arraylist of temp for temp values to put into database
 		 if(!reservations.isEmpty()) { //make sure reservations isnt empty
@@ -262,8 +292,12 @@ public Reservation convertToReservation(GsonReservation temp) { //converts GsonR
 		return null; //return null if any issues
 		 
 	 }
+	 
+	 
 	  
-	    
+	    /*
+	     * method to save reservations to json file
+	     */
 	   public void saveDatabase() { //saves database back to json file
 		   List<GsonReservation> temp = changeToGson(); //changes reservations to gson reservation
 		    
@@ -277,35 +311,54 @@ public Reservation convertToReservation(GsonReservation temp) { //converts GsonR
 	    }
 	   
 	   
+	   /*
+	    * method to update last reservation id
+	    * @param int reservation id to compare
+	    * 
+	    */
 	   private void updateLastReservationId(int reservationId) { //checks if new reservation id is greater than the last, if so then change it so we can keep track
-			if (reservationId > lastReservationId) {
+			if (reservationId > lastReservationId) { //we want to keep max reservation id
 				lastReservationId = reservationId;
 			}
 		}
 
-		
+		/*
+		 * method to generate unique reservation id
+		 * @return a unique int reservation id
+		 */
 		private int generateReservationId() { //generates new reservation id just by incrementing
 			lastReservationId++;
 			return lastReservationId;
 		}
 		
 		
+		
+		/*
+		 * method to geerate history of reservations in a given range
+		 * @param Local date of start and end date of range
+		 * @return list of reservations that fall within given range, null if none
+		 */
 		public List<Reservation> generatePastHistory(LocalDate startDate, LocalDate endDate) {
-	        List<Reservation> pastHistory = new ArrayList<>(); // List to store past history
+	        List<Reservation> pastHistory = new ArrayList<>(); // list to store report
 
-	        // Iterate through reservations
-	        for (Reservation reservation : reservations.values()) {
+	       
+	        for (Reservation reservation : reservations.values()) { //go thru reservations
 	            LocalDate checkInDate = reservation.getCheckInDate();
 	            LocalDate checkOutDate = reservation.getCheckOutDate();
 
-	            // Check if the reservation falls within the specified date range
+	            //if falls within specified range
 	            if (checkInDate.isBefore(endDate) && checkOutDate.isAfter(startDate)) {
-	                pastHistory.add(reservation); // Add the reservation to the past history list
+	                pastHistory.add(reservation); // add to list
 	            }
 	        }
-	        return pastHistory; // Return the past history report as a list of reservations
+	        return pastHistory; // return list, will be null if no reservations added
 	    }
 		
+		
+		
+		/*
+		 * method used in testing to clear database so we don't overload it
+		 */
 		public void clearDatabase() {
 		    reservations.clear();
 		    saveDatabase(); //be careful, this over rides entire databse
