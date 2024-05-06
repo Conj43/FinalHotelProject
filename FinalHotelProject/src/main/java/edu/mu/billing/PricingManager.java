@@ -6,6 +6,9 @@ import java.util.Map;
 
 import edu.mu.hotel.rooms.RoomType;
 
+/*
+ * class is for pricing manager which uses pricing strategies
+ */
 public class PricingManager {
     private static Map<String, PricingStrategy> strategies = new HashMap<>();
     

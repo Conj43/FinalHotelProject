@@ -23,7 +23,7 @@ public class ReservationManagerTest {
 
     @BeforeEach
     void setUp() {
-        reservationManager = ReservationManager.getInstance();
+        reservationManager = ReservationManager.getInstance(); //get instance to use before each test
     }
 
     
@@ -45,7 +45,7 @@ public class ReservationManagerTest {
     @Test
     void testCreateReservation() {
     	
-    	reservationManager.clearDatabase();
+    	reservationManager.clearDatabase(); //clear database so we dont overlap
     	
         int customerId = 1;
         String roomType = "Standard";
@@ -57,7 +57,7 @@ public class ReservationManagerTest {
        
         Reservation reservation = reservationManager.createReservation(customerId, roomType, checkIn, checkOut, serviceRequests);
 
-
+        //checks each attribute to make sure constructor works
         assertNotNull(reservation, "Reservation should not be null bruh");
         assertEquals(customerId, reservation.getCustomerId(), "Customer ID should match");
         assertEquals("Standard Room", reservation.getRoomType(), "Room type should match");
@@ -65,7 +65,7 @@ public class ReservationManagerTest {
         assertEquals(checkOut, reservation.getCheckOutDateString(), "Check-out date should match");
         assertTrue(reservation.isActive(), "Reservation should be active");
         
-        reservationManager.clearDatabase();
+        reservationManager.clearDatabase(); //clears database
     }
 
     /**
@@ -75,16 +75,16 @@ public class ReservationManagerTest {
     void testGetActiveReservations() {
 
     	
-        createDummyReservations();
+        createDummyReservations(); //makes test reservations
 
 
         List<Reservation> activeReservations = reservationManager.getActiveReservations();
 
 
-        assertFalse(activeReservations.isEmpty(), "Active reservations list should not be empty");
+        assertFalse(activeReservations.isEmpty(), "Active reservations list should not be empty"); //since we made reservations, shouldnt be empty
         assertTrue(activeReservations.stream().allMatch(Reservation::isActive), "All reservations should be active");
         
-        reservationManager.clearDatabase();
+        reservationManager.clearDatabase(); //clears database
     }
 
     /**
@@ -93,16 +93,16 @@ public class ReservationManagerTest {
     @Test
     void testGetReservationById() {
 
-        Reservation createdReservation = createDummyReservation();
+        Reservation createdReservation = createDummyReservation();// create one reservation
 
 
-        Reservation retrievedReservation = reservationManager.getReservationById(createdReservation.getReservationId());
+        Reservation retrievedReservation = reservationManager.getReservationById(createdReservation.getReservationId()); //get reseration by id
 
 
         assertNotNull(retrievedReservation, "Retrieved reservation should not be null");
         assertEquals(createdReservation, retrievedReservation, "Retrieved reservation should match created reservation");
         
-        reservationManager.clearDatabase();
+        reservationManager.clearDatabase(); //clears database
     }
 
     /**

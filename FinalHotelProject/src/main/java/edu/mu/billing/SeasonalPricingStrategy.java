@@ -5,6 +5,10 @@ import java.time.Month;
 
 import edu.mu.hotel.rooms.RoomType;
 
+
+/*
+ * class for seasonal pricing strategy
+ */
 public class SeasonalPricingStrategy implements PricingStrategy {
 	
 	

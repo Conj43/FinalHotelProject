@@ -5,10 +5,15 @@ import java.util.List;
 
 import edu.mu.hotel.rooms.RoomType;
 
+/*
+ * class to make reservation objects
+ */
 
 public class Reservation {
 	
-	//reservation attributes
+	/*
+	 * reservation attributes
+	 */
     private  int reservationId;
     private  int customerId;
     private  String checkInDate;
@@ -21,13 +26,17 @@ public class Reservation {
 
 
     
-    //default constructor
+   /*
+    * default constructor
+    */
    public Reservation() {
 	
 	   
    }
 
-   //paramaterized constructor
+   /*
+    * parameterized constructor
+    */
 	public Reservation(int customerId, String checkInDate, String checkOutDate, RoomType room, List<ServiceRequest> serviceRequests) { 
         this.customerId = customerId;
         this.checkInDate = checkInDate;
@@ -41,7 +50,9 @@ public class Reservation {
 
 
     
-    //getters and setters
+    /*
+     * getters and setters
+     */
 
     public void setReservationId(int reservationId) {
 		this.reservationId = reservationId;
@@ -86,9 +97,6 @@ public class Reservation {
 	public void setCheckOutDate(String checkOutDate) {
 		this.checkOutDate = checkOutDate;
 	}
-
-
-
 
 
 
@@ -157,6 +165,12 @@ public class Reservation {
 	    public List<ServiceRequest> getServiceRequests() {
 	        return serviceRequests;
 	    }
+	    
+	    
+	    /*
+	     * to string method
+	     * @return string with all attributes of reservation
+	     */
 
 		@Override
 		public String toString() {
