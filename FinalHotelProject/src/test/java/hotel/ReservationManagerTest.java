@@ -99,7 +99,7 @@ public class ReservationManagerTest {
         Reservation retrievedReservation = reservationManager.getReservationById(createdReservation.getReservationId()); //get reseration by id
 
 
-        assertNotNull(retrievedReservation, "Retrieved reservation should not be null");
+        assertNotNull(retrievedReservation, "Retrieved reservation should not be null"); //check to make sure not null and is correct
         assertEquals(createdReservation, retrievedReservation, "Retrieved reservation should match created reservation");
         
         reservationManager.clearDatabase(); //clears database
@@ -111,16 +111,16 @@ public class ReservationManagerTest {
     @Test
     void testCancelReservation() {
 
-        Reservation reservation = createDummyReservation();
+        Reservation reservation = createDummyReservation(); //create reseration
 
 
-        boolean cancellationResult = reservationManager.cancelReservation(reservation.getReservationId());
+        boolean cancellationResult = reservationManager.cancelReservation(reservation.getReservationId()); //test cancel dumy reservation
 
 
-        assertTrue(cancellationResult, "Cancellation should be successful");
-        assertFalse(reservation.isActive(), "Reservation should be inactive after cancellation");
+        assertTrue(cancellationResult, "Cancellation should be successful"); //make sure it retruns true
+        assertFalse(reservation.isActive(), "Reservation should be inactive after cancellation"); //make sure is active is false
         
-        reservationManager.clearDatabase();
+        reservationManager.clearDatabase(); //clear database
     }
 
     /**
@@ -129,15 +129,15 @@ public class ReservationManagerTest {
     @Test
     void testConfirmBooking() {
 
-        Reservation reservation = createDummyReservation();
+        Reservation reservation = createDummyReservation(); //create dummy reservation
 
 
-        String confirmationMessage = reservationManager.confirmBooking(reservation);
+        String confirmationMessage = reservationManager.confirmBooking(reservation); //get confimation string messae
 
-
+        //make sure it matches
         assertTrue(confirmationMessage.contains(String.valueOf(reservation.getReservationId())), "Confirmation message should contain reservation ID");
         
-        reservationManager.clearDatabase();
+        reservationManager.clearDatabase(); //clear database
     }
 
     /**
@@ -146,24 +146,24 @@ public class ReservationManagerTest {
     @Test
     void testGeneratePastHistory() {
 
-        createDummyReservations();
+        createDummyReservations(); //create dummy reservations
 
 
-        LocalDate startDate = LocalDate.of(2024, 1, 1);
+        LocalDate startDate = LocalDate.of(2024, 1, 1); //start and end date for range
         LocalDate endDate = LocalDate.of(2024, 12, 30);
-        List<Reservation> pastHistory = reservationManager.generatePastHistory(startDate, endDate);
+        List<Reservation> pastHistory = reservationManager.generatePastHistory(startDate, endDate); //generate the history
 
 
-        assertFalse(pastHistory.isEmpty(), "Past history list should not be empty");
+        assertFalse(pastHistory.isEmpty(), "Past history list should not be empty"); //shouldnt be emtpy
         assertTrue(pastHistory.stream().allMatch(reservation -> {
-            LocalDate reservationDate = LocalDate.parse(reservation.getCheckInDateString());
+            LocalDate reservationDate = LocalDate.parse(reservation.getCheckInDateString()); //should be all reservations that were made
             return reservationDate.isAfter(startDate) && reservationDate.isBefore(endDate);
         }), "All reservations in past history should fall within specified date range");
         
-        reservationManager.clearDatabase();
+        reservationManager.clearDatabase(); //clear database
     }
 
-    // Helper methods for test cases
+    // helper methods to create reservations
 
     private Reservation createDummyReservation() {
         return reservationManager.createReservation(1, "Standard", "2024-07-01", "2024-07-05", new ArrayList<>());

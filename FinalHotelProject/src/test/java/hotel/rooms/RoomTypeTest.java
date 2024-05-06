@@ -17,11 +17,17 @@ class RoomTypeTest {
 
     private RoomType roomType;
 
+    /*
+     * make a sample room type, basically just checks standard room
+     */
     @BeforeEach
     void setUp() {
         roomType = new ConcreteRoomType("Standard Room", 100.0, 101, false, new HashMap<>());
     }
 
+    /*
+     * many just test getters and setters
+     */
     @Test
     void testAddAmenity() {
         roomType.addAmenity("Pool", true);
@@ -38,6 +44,9 @@ class RoomTypeTest {
         assertEquals(100.0, roomType.getBasePrice(), "Base price should be 100.0");
     }
 
+    /*
+     * tests occupised status
+     */
     @Test
     void testOccupiedStatus() {
         assertFalse(roomType.isOccupied(), "Initially, room should not be occupied");
@@ -52,22 +61,28 @@ class RoomTypeTest {
 
     @Test
     void testIsReserved() {
-        // Assuming ReservationManager and its methods are appropriately mocked elsewhere or within this test class
+       
         assertFalse(roomType.isReserved(101, "2024-01-01", "2024-01-05"), "Room should not be reserved for given dates");
     }
 
+    /*
+     * test dynamic pricing
+     */
     @Test
     void testGetDynamicPrice() {
-        // Assuming PricingManager and its methods are appropriately mocked elsewhere or within this test class
+        
         assertEquals(100.0, roomType.getDynamicPrice(LocalDate.now()), "Dynamic price should be the base price");
     }
 
-    // Implementing a concrete subclass for testing purposes
+    // implement a concrete subclass for testing purposes
     private static class ConcreteRoomType extends RoomType {
         public ConcreteRoomType(String typeName, double basePrice, int roomNumber, boolean isOccupied, Map<String, Boolean> amenities) {
             super(typeName, basePrice, roomNumber, isOccupied, amenities);
         }
 
+        /*
+         * test abstract calculate cost method
+         */
         @Override
         public double calculateCost(int days, LocalDate checkIn) {
             return getDynamicPrice(checkIn) * days;

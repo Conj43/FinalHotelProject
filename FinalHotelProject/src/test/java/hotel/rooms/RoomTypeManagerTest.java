@@ -18,26 +18,37 @@ class RoomTypeManagerTest {
         roomManager = RoomTypeManager.getInstance();
     }
 
+    /*
+     * tests singleton design pattern
+     */
     @Test
     void testSingletonInstance() {
         RoomTypeManager anotherInstance = RoomTypeManager.getInstance();
         assertSame(roomManager, anotherInstance, "There should be only one instance of RoomTypeManager");
     }
 
+    /*
+     * test if gey by room number works correctly
+     */
     @Test
     void testGetRoomByRoomNum() {
-        // Assuming room numbers are set predictably in the constructor of the rooms
         RoomType room = roomManager.getRoomByRoomNum(101);
         assertNotNull(room, "Room should be found with room number 101");
         assertEquals(101, room.getRoomNumber(), "Room number should match the queried number");
     }
 
+    /*
+     * tests get rooms, should return correct corresponding list
+     */
     @Test
     void testGetRooms() {
         assertNotNull(roomManager.getRooms("Standard"), "Should return list of standard rooms");
         assertTrue(roomManager.getRooms("Standard").size() > 0, "Should have standard rooms available");
     }
 
+    /*
+     * make sure available rooms is correct
+     */
     @Test
     void testFindAvailableRooms() {
         RoomType availableRoom = roomManager.findAvailableRooms("Standard", "2024-01-01", "2024-01-05");
@@ -45,14 +56,20 @@ class RoomTypeManagerTest {
         assertFalse(availableRoom.isOccupied(), "Found room should not be occupied");
     }
 
+    /*
+     * make sure increases room availability
+     */
     @Test
     void testIncreaseRoomAvailability() {
         RoomType room = roomManager.getRoomByRoomNum(101);
-        roomManager.decreaseRoomAvailability(room); // Simulate room check-in
-        roomManager.increaseRoomAvailability(room); // Simulate room check-out
+        roomManager.decreaseRoomAvailability(room); //  room check-in
+        roomManager.increaseRoomAvailability(room); //  room check-out
         assertFalse(room.isOccupied(), "Room should be marked as unoccupied after check-out");
     }
 
+    /*
+     * makes sure decreases room availability
+     */
     @Test
     void testDecreaseRoomAvailability() {
         RoomType room = roomManager.getRoomByRoomNum(102);
@@ -60,11 +77,17 @@ class RoomTypeManagerTest {
         assertTrue(room.isOccupied(), "Room should be marked as occupied after check-in");
     }
 
+    /*
+     * sees if it gets total rooms
+     */
     @Test
     void testGetTotalRooms() {
         assertEquals(30, roomManager.getTotalRooms("Standard"), "Should return the correct total number of standard rooms");
     }
 
+    /*
+     * tests total rooms available
+     */
     @Test
     void testGetTotalRoomsAvailable() {
         int initialAvailable = roomManager.getTotalRoomsAvailable();

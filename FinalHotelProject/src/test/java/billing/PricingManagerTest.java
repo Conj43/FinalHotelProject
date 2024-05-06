@@ -26,7 +26,7 @@ public class PricingManagerTest {
         
         double actualPrice = PricingManager.calculatePrice(roomType, date);
        
-        assertEquals(expectedPrice, actualPrice, 0.01); // Use delta for double comparison
+        assertEquals(expectedPrice, actualPrice, 0.01); // compare actual and expected
     }
 
     /**
@@ -43,6 +43,6 @@ public class PricingManagerTest {
         double actualPrice = PricingManager.calculatePrice(roomType, date);
 
         
-        assertEquals(expectedPrice, actualPrice, 0.01); // Use delta for double comparison
+        assertEquals(expectedPrice, actualPrice, 0.01); //comapre actual and expected
     }
 }

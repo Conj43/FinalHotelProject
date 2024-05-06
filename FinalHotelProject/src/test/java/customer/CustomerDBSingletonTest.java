@@ -47,7 +47,7 @@ public class CustomerDBSingletonTest {
     @Test
     void testAddAndGetCustomer() {
         Customer customer = new Customer("John", "Doe", "john@example.com", "123456789", "123 Main St", "1990-01-01", 30, true, 100, "1234567890");
-        customerDbManager.addCustomer(customer);
+        customerDbManager.addCustomer(customer);//add customer to db then retrieve them and test to see if equal
         Customer retrievedCustomer = customerDbManager.getCustomer(customer.getCustomerID());
         assertEquals(customer, retrievedCustomer, "Retrieved customer should match added customer");
     }
@@ -76,6 +76,7 @@ public class CustomerDBSingletonTest {
         Customer retrievedCustomer1 = customerDbManager.getCustomer(customer1.getCustomerID());
         Customer retrievedCustomer2 = customerDbManager.getCustomer(customer2.getCustomerID());
 
+        //test customers that were retrieved
         assertNotNull(retrievedCustomer1, "Retrieved customer 1 should not be null");
         assertNotNull(retrievedCustomer2, "Retrieved customer 2 should not be null");
         assertEquals(customer1, retrievedCustomer1, "Retrieved customer 1 should match added customer 1");
