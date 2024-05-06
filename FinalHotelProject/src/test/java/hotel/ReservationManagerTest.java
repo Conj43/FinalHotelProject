@@ -4,12 +4,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.mu.customer.CustomerDBSingleton;
+import edu.mu.hotel.GsonReservation;
 import edu.mu.hotel.Reservation;
 import edu.mu.hotel.ReservationManager;
 import edu.mu.hotel.ServiceRequest;
+import edu.mu.hotel.rooms.RoomType;
+import edu.mu.hotel.rooms.RoomTypeManager;
+import edu.mu.hotel.rooms.StandardRoom;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ReservationManagerTest {
 
     private ReservationManager reservationManager;
+    int lastReservationId;
 
     @BeforeEach
     void setUp() {
@@ -162,6 +168,50 @@ public class ReservationManagerTest {
         
         reservationManager.clearDatabase(); //clear database
     }
+    
+    
+    
+    
+    /*
+     * test converting to gson reservation from reservation
+     */
+    @Test
+    public void testConvertToReservation() {
+    	
+    	
+    	
+    	//create gson reservation and set values
+        GsonReservation temp = new GsonReservation();
+        
+        temp.setReservationId(1);
+        temp.setCustomerId(123);
+        temp.setCheckInDate("2024-05-01");
+        temp.setCheckOutDate("2024-05-10");
+        temp.setRoomTypeName("Standard Room");
+        temp.setRoomNumber(100);
+        temp.setActive(true);
+        temp.setAccessCode("test-access-code");
+        temp.setKeyCardActive(true);
+        temp.setServiceRequests(Arrays.asList(new ServiceRequest("test service request", 1, "test")));
+
+        
+
+        //convert to rservation and check the values
+        Reservation reservation = reservationManager.convertToReservation(temp);
+        
+        assertNotNull(reservation);
+        assertEquals(1, reservation.getReservationId());
+        assertEquals(123, reservation.getCustomerId());
+        assertEquals("2024-05-01", reservation.getCheckInDateString());
+        assertEquals("2024-05-10", reservation.getCheckOutDateString());
+        assertEquals(100, reservation.getRoom().getRoomNumber());
+        assertTrue(reservation.isActive());
+        assertEquals("test-access-code", reservation.getAccessCode());
+        assertTrue(reservation.isKeyCardActive());
+        assertEquals(1, reservation.getServiceRequests().size());
+    }
+    
+    
 
     // helper methods to create reservations
 
@@ -174,5 +224,9 @@ public class ReservationManagerTest {
         reservationManager.createReservation(2, "Deluxe", "2024-06-15", "2024-06-20", new ArrayList<>());
         reservationManager.createReservation(3, "Suite", "2024-07-01", "2024-07-05", new ArrayList<>());
     }
+    
+    
+    
+    
 }
 

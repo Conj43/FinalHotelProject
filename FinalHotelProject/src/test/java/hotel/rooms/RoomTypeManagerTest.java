@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import edu.mu.hotel.rooms.RoomType;
 import edu.mu.hotel.rooms.RoomTypeManager;
+import edu.mu.hotel.rooms.StandardRoom;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,9 +42,36 @@ class RoomTypeManagerTest {
      * tests get rooms, should return correct corresponding list
      */
     @Test
-    void testGetRooms() {
+    void testGetStandardRooms() {
         assertNotNull(roomManager.getRooms("Standard"), "Should return list of standard rooms");
         assertTrue(roomManager.getRooms("Standard").size() > 0, "Should have standard rooms available");
+    }
+    
+    /*
+     * tests get rooms, should return correct corresponding list
+     */
+    @Test
+    void testGetDeluxeRooms() {
+        assertNotNull(roomManager.getRooms("Deluxe"), "Should return list of deluxe rooms");
+        assertTrue(roomManager.getRooms("Deluxe").size() > 0, "Should have deluxe rooms available");
+    }
+    
+    /*
+     * tests get rooms, should return correct corresponding list
+     */
+    @Test
+    void testGetConferenceRooms() {
+        assertNotNull(roomManager.getRooms("Conference"), "Should return list of conference rooms");
+        assertTrue(roomManager.getRooms("Conference").size() > 0, "Should have conference rooms available");
+    }
+    
+    /*
+     * tests get rooms, should return correct corresponding list
+     */
+    @Test
+    void testGetSuiteRooms() {
+        assertNotNull(roomManager.getRooms("Suite"), "Should return list of suite rooms");
+        assertTrue(roomManager.getRooms("Suite").size() > 0, "Should have s rooms available");
     }
 
     /*
@@ -94,5 +122,23 @@ class RoomTypeManagerTest {
         RoomType room = roomManager.getRoomByRoomNum(103);
         roomManager.decreaseRoomAvailability(room);
         assertEquals(initialAvailable - 1, roomManager.getTotalRoomsAvailable(), "Total available rooms should decrease after a check-in");
+    }
+    
+    
+    /*
+     * test get string of room name by type room
+     */
+    @Test
+    public void testGetRoomName() {
+        
+        String expectedRoomName = "Standard Room";
+        RoomType roomType = new StandardRoom();
+
+        
+        
+        String actualRoomName = RoomTypeManager.getInstance().getRoomName(roomType);
+
+        //compare result
+        assertEquals(expectedRoomName, actualRoomName);
     }
 }

@@ -109,10 +109,11 @@ public class CustomerTest {
         customer.setAge(30);
         customer.setRewardsMember(true);
         customer.setRewardPoints(100);
+        customer.setCardNum("123456");
 
         
         //tests to make sure to string outputs correct to string
-        String expectedToString = "Customer [customerID=0, firstName=John, lastName=Doe, email=john@example.com, phoneNum=123456789, address=123 Main St, birthDate=1990-01-01, age=30, isRewardsMember=true, rewardPoints=100]";
+        String expectedToString = "Customer [customerID=0, firstName=John, lastName=Doe, email=john@example.com, phoneNum=123456789, address=123 Main St, birthDate=1990-01-01, age=30, isRewardsMember=true, rewardPoints=100, cardNum=123456]";
         assertEquals(expectedToString, customer.toString());
     }
     
