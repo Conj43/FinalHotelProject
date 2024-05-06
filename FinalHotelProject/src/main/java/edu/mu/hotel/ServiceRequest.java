@@ -1,8 +1,5 @@
 package edu.mu.hotel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ServiceRequest {
     private String requestType;
     private int quantity;
