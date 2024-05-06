@@ -11,12 +11,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeluxeRoomTest {
 
     private DeluxeRoom deluxeRoom;
-
+    /*
+     * uses constructor to assign default values
+     */
     @BeforeEach
     void setUp() {
         deluxeRoom = new DeluxeRoom();
     }
 
+    /*
+     * check to make sure each value was assigned correctly
+     */
     @Test
     void testRoomType() {
         assertEquals("Deluxe Room", deluxeRoom.getTypeName(), "Room type should be 'Deluxe Room'");

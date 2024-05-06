@@ -12,11 +12,18 @@ class ConferenceRoomTest {
 
     private ConferenceRoom conferenceRoom;
 
+    /*
+     * create a conference room using constructor
+     */
     @BeforeEach
     void setUp() {
         conferenceRoom = new ConferenceRoom();
     }
 
+    
+    /*
+     * each test makes sure value is assigned correctly when using constrictor
+     */
     @Test
     void testRoomType() {
         assertEquals("Conference Room", conferenceRoom.getTypeName(), "Room type should be 'Conference Room'");
@@ -45,7 +52,7 @@ class ConferenceRoomTest {
 
     @Test
     void testCalculateCost() {
-        double expectedCost = conferenceRoom.getBasePrice() * 5; // Assuming getDynamicPrice returns base rate
+        double expectedCost = conferenceRoom.getBasePrice() * 5; // assuming getDynamicPrice returns base rate
         assertEquals(expectedCost, conferenceRoom.calculateCost(5, LocalDate.now()), "Cost calculation should match expected for 5 days");
     }
 }

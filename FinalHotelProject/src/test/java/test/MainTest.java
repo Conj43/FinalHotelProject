@@ -9,6 +9,10 @@ import org.junit.jupiter.api.Test;
 import edu.mu.test.Main;
 
 public class MainTest {
+	
+	/*
+	 * most methods in main are not really meant to be tested, so we chose to leave those out because still have great code coverage
+	 */
 
     @Test
     void testCalculateDaysStayed() {

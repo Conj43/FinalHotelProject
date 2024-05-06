@@ -30,6 +30,7 @@ public class CustomerTest {
         
     }
     
+    //these test all getters and setter indivudually
     @Test
     void testSetAndGetCustomerId() {
         customer.setCustomerID(3);
@@ -109,6 +110,8 @@ public class CustomerTest {
         customer.setRewardsMember(true);
         customer.setRewardPoints(100);
 
+        
+        //tests to make sure to string outputs correct to string
         String expectedToString = "Customer [customerID=0, firstName=John, lastName=Doe, email=john@example.com, phoneNum=123456789, address=123 Main St, birthDate=1990-01-01, age=30, isRewardsMember=true, rewardPoints=100]";
         assertEquals(expectedToString, customer.toString());
     }
@@ -123,7 +126,7 @@ public class CustomerTest {
                                       String birthDate, int age, boolean isRewardsMember, int rewardPoints, String cardNum) {
         customer = new Customer(firstName, lastName, email, phoneNum, address, birthDate, age, isRewardsMember, rewardPoints, cardNum);
 
-        // Assert individual attributes
+        //test each attribute from constructor
         assertEquals(firstName, customer.getFirstName());
         assertEquals(lastName, customer.getLastName());
         assertEquals(email, customer.getEmail());

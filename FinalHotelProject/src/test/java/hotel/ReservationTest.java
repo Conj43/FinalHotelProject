@@ -20,17 +20,20 @@ class ReservationTest {
 
     @BeforeEach
     void setUp() {
-        roomType = mock(StandardRoom.class); // Mocking RoomType since it's abstract
-        when(roomType.getTypeName()).thenReturn("Standard Room");
+        roomType = mock(StandardRoom.class); // need to mock since abstract
+        when(roomType.getTypeName()).thenReturn("Standard Room"); 
 
         serviceRequests = new ArrayList<>();
-        serviceRequests.add(new ServiceRequest("Extra Towels", 5, "Want more towels"));
+        serviceRequests.add(new ServiceRequest("Extra Towels", 5, "Want more towels")); //make service request
 
-        reservation = new Reservation(123, "2024-01-01", "2024-01-05", roomType, serviceRequests);
+        reservation = new Reservation(123, "2024-01-01", "2024-01-05", roomType, serviceRequests); //create a reservation
     }
 
+    /*
+     * method to check if values werw assigned correctly
+     */
     @Test
-    void testReservationInitialization() {
+    void testReservationInitialization() { 
         assertEquals(123, reservation.getCustomerId());
         assertEquals(LocalDate.of(2024, 1, 1), reservation.getCheckInDate());
         assertEquals(LocalDate.of(2024, 1, 5), reservation.getCheckOutDate());
@@ -42,6 +45,10 @@ class ReservationTest {
         assertEquals(serviceRequests, reservation.getServiceRequests());
     }
 
+    
+    /*
+     * method to test all getters and setters
+     */
     @Test
     void testSettersAndGetters() {
         reservation.setReservationId(999);
@@ -67,6 +74,11 @@ class ReservationTest {
         assertEquals(newServiceRequests, reservation.getServiceRequests());
     }
 
+    
+    
+    /*
+     * tests the add service request
+     */
     @Test
     void testAddServiceRequest() {
         ServiceRequest newRequest = new ServiceRequest("Room Cleaning", 3, "Would like extra room cleaning");
@@ -74,6 +86,10 @@ class ReservationTest {
         assertTrue(reservation.getServiceRequests().contains(newRequest));
     }
 
+    
+    /*
+     * test to string method
+     */
     @Test
     void testToString() {
         String expectedString = "Reservation [reservationId=0, customerId=123, checkInDate=2024-01-01, checkOutDate=2024-01-05,\nroom=Standard Room, \nisActive=true, "
