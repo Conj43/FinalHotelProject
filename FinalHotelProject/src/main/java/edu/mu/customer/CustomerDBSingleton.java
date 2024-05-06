@@ -31,7 +31,7 @@ public class CustomerDBSingleton {
         loadDatabase(); //load database into hash map
     }
 	
-	private void loadDatabase() {
+	public void loadDatabase() {
 		try(FileReader reader = new FileReader(filePath)){ //read file using file path
 			Customer[] array = gson.fromJson(reader, Customer[].class); //reads json into Customer array
 			if(array != null) {
