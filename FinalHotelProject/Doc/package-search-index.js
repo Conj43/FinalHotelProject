@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"billing"},{"l":"customer"},{"l":"edu.mu.billing"},{"l":"edu.mu.customer"},{"l":"edu.mu.hotel"},{"l":"edu.mu.hotel.rooms"},{"l":"edu.mu.test"},{"l":"hotel"},{"l":"hotel.rooms"},{"l":"test"}];updateSearchResults();

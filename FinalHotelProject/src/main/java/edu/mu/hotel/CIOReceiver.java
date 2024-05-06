@@ -34,6 +34,7 @@ public class CIOReceiver {
 			reservation.setActive(false);	
 			KeyCardManager.deactivateKeyCard(reservation.getReservationId());
 	        reservation.setKeyCardActive(false);
+	        reservation.setAccessCode(null);
 	        ReservationManager.getInstance().saveDatabase();
 			manager.decreaseRoomAvailability(reservation.getRoom());
 		}
