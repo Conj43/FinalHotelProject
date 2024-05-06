@@ -326,7 +326,7 @@ public class Main {
     }
 
     
-    
+    //option for checking a guest out
     private static void customerCheckOut() {
         System.out.print("Enter Reservation ID: ");
         int id = scanner.nextInt();
@@ -350,7 +350,8 @@ public class Main {
             System.out.println("Reservation ID not found.");
         }
     }
-
+    
+    //option for checking a guest in 
     private static void customerCheckIn() {
         System.out.print("Enter Reservation ID: ");
         int id = scanner.nextInt();
@@ -376,7 +377,7 @@ public class Main {
     
     
     
-    
+    //option that is used to pay the customers bill
     private static void payCustomerBill(Customer customer, int id)
     {
     	 

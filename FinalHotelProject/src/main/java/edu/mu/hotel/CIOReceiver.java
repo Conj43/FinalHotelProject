@@ -2,16 +2,20 @@ package edu.mu.hotel;
 
 import edu.mu.customer.Customer;
 import edu.mu.hotel.rooms.RoomTypeManager;
-
+/*
+ * this is the receiver for the check in and out commands
+ * this handles the true logic behind the process
+ */
 public class CIOReceiver {
 	
-	RoomTypeManager manager = RoomTypeManager.getInstance();
+	RoomTypeManager manager = RoomTypeManager.getInstance(); //gets the instance of the current manager
 	
 	public void checkin(Customer customer, Reservation reservation)
 	{
-		if(customer.getCustomerID() == reservation.getCustomerId())
+		if(customer.getCustomerID() == reservation.getCustomerId()) //makes sure it has the correct customer and reservation before proceeding
 		{
-			reservation.setActive(true);
+			//this is sets everything to reflect that the guest has arrived and the room is occupied
+			reservation.setActive(true); 
 			manager.decreaseRoomAvailability(reservation.getRoom());
 			KeyCardManager.activateKeyCard(reservation.getReservationId());
 	        reservation.setKeyCardActive(true);
@@ -24,8 +28,9 @@ public class CIOReceiver {
 	
 	public void checkout(Customer customer, Reservation reservation)
 	{
-		if(customer.getCustomerID() == reservation.getCustomerId())
+		if(customer.getCustomerID() == reservation.getCustomerId())//makes sure it has the correct customer and reservation before proceeding
 		{
+			//resets all information to reflect that the guest has left
 			reservation.setActive(false);	
 			KeyCardManager.deactivateKeyCard(reservation.getReservationId());
 	        reservation.setKeyCardActive(false);
