@@ -217,7 +217,7 @@ public class Main {
      * method to make base service request
      * @param list of service requests
      */
-    private static void emptyServiceRequest(List<ServiceRequest> serviceRequests) {
+    public static void emptyServiceRequest(List<ServiceRequest> serviceRequests) {
     	ServiceRequest request = new ServiceRequest("N/A", 0, "N/A"); //default values
     	serviceRequests.add(request); //add to list
     }
@@ -426,7 +426,7 @@ public class Main {
      * @param customer object
      * @param reservation id int
      */
-    private static void payCustomerBill(Customer customer, int id)
+    public static void payCustomerBill(Customer customer, int id)
     {
     	 
         

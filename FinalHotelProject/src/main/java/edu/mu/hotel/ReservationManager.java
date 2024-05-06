@@ -316,7 +316,7 @@ public Reservation convertToReservation(GsonReservation temp) { //converts GsonR
 	    * @param int reservation id to compare
 	    * 
 	    */
-	   private void updateLastReservationId(int reservationId) { //checks if new reservation id is greater than the last, if so then change it so we can keep track
+	   public void updateLastReservationId(int reservationId) { //checks if new reservation id is greater than the last, if so then change it so we can keep track
 			if (reservationId > lastReservationId) { //we want to keep max reservation id
 				lastReservationId = reservationId;
 			}
