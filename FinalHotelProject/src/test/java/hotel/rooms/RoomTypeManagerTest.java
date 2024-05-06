@@ -1,7 +1,11 @@
-package edu.mu.hotel.rooms;
+package hotel.rooms;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import edu.mu.hotel.rooms.RoomType;
+import edu.mu.hotel.rooms.RoomTypeManager;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,7 +62,7 @@ class RoomTypeManagerTest {
 
     @Test
     void testGetTotalRooms() {
-        assertEquals(20, roomManager.getTotalRooms("Standard"), "Should return the correct total number of standard rooms");
+        assertEquals(30, roomManager.getTotalRooms("Standard"), "Should return the correct total number of standard rooms");
     }
 
     @Test

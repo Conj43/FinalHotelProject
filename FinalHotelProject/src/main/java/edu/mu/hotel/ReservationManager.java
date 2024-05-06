@@ -120,14 +120,25 @@ public class ReservationManager {
             int totalRoomsOfType = roomTypeManager.getTotalRooms(roomType); //get total number of rooms of given type
             
             //count how many rooms are booked for the given room type during the requested date range
-            long bookedRooms = reservations.values().stream()
-                    .filter(reservation -> reservation.isActive() &&
-                            reservation.getRoomType().equals(roomType) &&
-                            (
-                                (reservation.getCheckOutDate().isAfter(checkInDate) && reservation.getCheckInDate().isBefore(checkOutDate)) || // Overlapping dates
-                                (reservation.getCheckInDate().isEqual(checkInDate) || reservation.getCheckOutDate().isEqual(checkOutDate)) // Check-in or check-out date coincides with another reservation's date
-                            ))
-                    .count();
+         // Count how many rooms are booked for the given room type during the requested date range
+            int bookedRooms = 0;
+
+            for (Reservation reservation : reservations.values()) {
+                if (reservation.isActive() &&
+                    reservation.getRoomType().equals(roomType) &&
+                    (
+                        // Partial overlap
+                        (reservation.getCheckInDate().isBefore(checkOutDate) && reservation.getCheckOutDate().isAfter(checkInDate)) || 
+                        // Complete overlap
+                        (reservation.getCheckInDate().isEqual(checkInDate) && reservation.getCheckOutDate().isEqual(checkOutDate)) || 
+                        // Complete overlap
+                        (reservation.getCheckInDate().isAfter(checkInDate) && reservation.getCheckOutDate().isBefore(checkOutDate))
+                    )) {
+                    bookedRooms++;
+                }
+            }
+
+
 
 
             //check if there are any rooms left
@@ -294,6 +305,11 @@ public Reservation convertToReservation(GsonReservation temp) { //converts GsonR
 	        }
 	        return pastHistory; // Return the past history report as a list of reservations
 	    }
+		
+		public void clearDatabase() {
+		    reservations.clear();
+		    saveDatabase(); //be careful, this over rides entire databse
+		}
     
     
     

@@ -17,7 +17,10 @@ public class Customer {
 	private String cardNum;
 	
 	
-	//default constructor
+	/*
+     * default constructor
+     * 
+     */
 	public Customer() {
 		
 	}
@@ -25,7 +28,11 @@ public class Customer {
 	
 	
 	
-	//paramateized constructor
+	/*
+     * 
+     * paramaterized constructor
+     * 
+     */
 	public Customer(String firstName, String lastName, String email, String phoneNum, String address,
 			String birthDate, int age, boolean isRewardsMember, int rewardPoints, String cardNum) {
 		super();

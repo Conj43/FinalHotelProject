@@ -240,13 +240,6 @@ public class GsonReservation {
 		this.isActive = isActive;
 	}
 	
-	
 
-	
-	
-	
-	
-	
-	
 
 }

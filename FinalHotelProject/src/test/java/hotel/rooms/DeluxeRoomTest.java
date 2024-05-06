@@ -1,7 +1,10 @@
-package edu.mu.hotel.rooms;
+package hotel.rooms;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import edu.mu.hotel.rooms.DeluxeRoom;
+
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,12 +19,12 @@ class DeluxeRoomTest {
 
     @Test
     void testRoomType() {
-        assertEquals("Deluxe Room", deluxeRoom.getRoomType(), "Room type should be 'Deluxe Room'");
+        assertEquals("Deluxe Room", deluxeRoom.getTypeName(), "Room type should be 'Deluxe Room'");
     }
 
     @Test
     void testBaseRate() {
-        assertEquals(125.0, deluxeRoom.getBaseRate(), "Base rate should be 125.0");
+        assertEquals(125.0, deluxeRoom.getBasePrice(), "Base rate should be 125.0");
     }
 
     @Test
@@ -52,7 +55,7 @@ class DeluxeRoomTest {
 
     @Test
     void testCalculateCost() {
-        double expectedCost = deluxeRoom.getBaseRate() * 3; // Assuming getDynamicPrice returns base rate
+        double expectedCost = deluxeRoom.getBasePrice() * 3; // Assuming getDynamicPrice returns base rate
         assertEquals(expectedCost, deluxeRoom.calculateCost(3, LocalDate.now()), "Cost calculation should match expected for 3 days");
     }
 

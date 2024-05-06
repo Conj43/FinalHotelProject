@@ -12,9 +12,9 @@ public class RoomTypeManager {
 	private static RoomTypeManager instance = null; //this class uses singleton design pattern
 
 	
-	private int totalStandardRooms = 20; //our hotel has 20 standard rooms
+	private int totalStandardRooms = 30; //our hotel has 30 standard rooms
 	private int totalDeluxeRooms = 15; //15 deluxe rooms
-	private int totalSuiteRooms = 3; //3 suite rooms
+	private int totalSuiteRooms = 8; //8 suite rooms
 	private int totalConferenceRooms = 5;
 	
 	private int totalRooms = totalStandardRooms+totalDeluxeRooms+totalSuiteRooms; //total rooms is those all combined
@@ -130,7 +130,7 @@ public class RoomTypeManager {
 	    }
 
 	    for (RoomType room : rooms) {
-	    	System.out.println(room.getRoomNumber());
+	    	
 	        if (!room.isOccupied() && !room.isReserved(room.getRoomNumber(), checkIn,  checkOut)) {
 	        	
 	            return room;

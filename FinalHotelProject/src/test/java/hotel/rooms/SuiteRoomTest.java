@@ -1,7 +1,10 @@
-package edu.mu.hotel.rooms;
+package hotel.rooms;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import edu.mu.hotel.rooms.SuiteRoom;
+
 import java.time.LocalDate;
 import java.util.Map;
 

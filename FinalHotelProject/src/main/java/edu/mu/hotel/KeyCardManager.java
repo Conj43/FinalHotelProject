@@ -16,7 +16,7 @@ public class KeyCardManager {
         System.out.println("\nKey card deactivated for reservation ID: " + reservationId);
     }
 
-    public boolean isKeyCardActive(int reservationId) {
+    public static boolean isKeyCardActive(int reservationId) {
     	Reservation reservation = ReservationManager.getInstance().getReservationById(reservationId);
         return reservation.isKeyCardActive();
     }

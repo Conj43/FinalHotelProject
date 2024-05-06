@@ -1,4 +1,4 @@
-package edu.mu.hotel;
+package hotel;
 
 import edu.mu.hotel.*;
 import edu.mu.hotel.rooms.RoomType;
@@ -24,7 +24,7 @@ class ReservationTest {
         when(roomType.getTypeName()).thenReturn("Standard Room");
 
         serviceRequests = new ArrayList<>();
-        serviceRequests.add(new ServiceRequest("Extra Towels", 5));
+        serviceRequests.add(new ServiceRequest("Extra Towels", 5, "Want more towels"));
 
         reservation = new Reservation(123, "2024-01-01", "2024-01-05", roomType, serviceRequests);
     }
@@ -52,7 +52,7 @@ class ReservationTest {
         reservation.setKeyCardActive(true);
         reservation.setAccessCode("XYZ123");
 
-        ServiceRequest newServiceRequest = new ServiceRequest("Room Cleaning", 2);
+        ServiceRequest newServiceRequest = new ServiceRequest("Room Cleaning", 2, "Would like extra room cleaning");
         List<ServiceRequest> newServiceRequests = new ArrayList<>();
         newServiceRequests.add(newServiceRequest);
         reservation.setServiceRequests(newServiceRequests);
@@ -69,14 +69,15 @@ class ReservationTest {
 
     @Test
     void testAddServiceRequest() {
-        ServiceRequest newRequest = new ServiceRequest("Room Cleaning", 3);
+        ServiceRequest newRequest = new ServiceRequest("Room Cleaning", 3, "Would like extra room cleaning");
         reservation.addServiceRequest(newRequest);
         assertTrue(reservation.getServiceRequests().contains(newRequest));
     }
 
     @Test
     void testToString() {
-        String expectedString = "Reservation [reservationId=0, customerId=123, checkInDate=2024-01-01, checkOutDate=2024-01-05,\nroom=Standard Room, \nisActive=true, accessCode=Guest has not checked in yet., isKeyCardActive=false, serviceRequests=[Extra Towels]]";
+        String expectedString = "Reservation [reservationId=0, customerId=123, checkInDate=2024-01-01, checkOutDate=2024-01-05,\nroom=Standard Room, \nisActive=true, "
+        		+ "accessCode=Guest has not checked in yet., isKeyCardActive=false, serviceRequests=[ServiceRequest [requestType=Extra Towels, quantity=5, notes=Want more towels]]]";
         assertEquals(expectedString, reservation.toString().replace(reservation.getRoom().toString(), reservation.getRoomType()));
     }
 }

@@ -1,8 +1,13 @@
-package edu.mu.hotel.rooms;
+package hotel.rooms;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import edu.mu.hotel.rooms.StandardRoom;
+
 import java.time.LocalDate;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StandardRoomTest {
