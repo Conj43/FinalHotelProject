@@ -32,6 +32,7 @@ if you are wanting to test the features you can use this customer
         "rewardPoints": 0,
         "cardNum": "123"
 -this customer has a standard room reserved for 2024-05-06 through 2024-05-09
+-reservation id is 1
 
 
 Colin’s features:
