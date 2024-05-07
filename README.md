@@ -16,7 +16,23 @@ What we used to create this project:
     - Singleton
 - IDE: Eclipse
 
-To run this application it is very simple, you will just need to download the source code and execute it in an environment ready to build using maven
+To run this application it is very simple, you will just need to download the source code and execute it in an environment ready to build using Maven. Main.java is the runnable file.
+
+
+if you are wanting to test the features you can use this customer
+         "customerID": 53,
+        "firstName": "test",
+        "lastName": "test",
+        "email": "test",
+        "phoneNum": "123",
+        "address": "123",
+        "birthDate": "2024-05-06",
+        "age": 0,
+        "isRewardsMember": true,
+        "rewardPoints": 0,
+        "cardNum": "123"
+-this customer has a standard room reserved for 2024-05-06 through 2024-05-09
+
 
 Colin’s features:
 -	Define Room Types/number of rooms
