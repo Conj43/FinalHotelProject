@@ -7,7 +7,6 @@ import edu.mu.hotel.rooms.RoomType;
 import edu.mu.hotel.rooms.RoomTypeManager;
 import edu.mu.hotel.rooms.StandardRoom;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RoomTypeManagerTest {

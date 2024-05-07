@@ -3,14 +3,12 @@ package hotel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import edu.mu.customer.CustomerDBSingleton;
+
 import edu.mu.hotel.GsonReservation;
 import edu.mu.hotel.Reservation;
 import edu.mu.hotel.ReservationManager;
 import edu.mu.hotel.ServiceRequest;
-import edu.mu.hotel.rooms.RoomType;
-import edu.mu.hotel.rooms.RoomTypeManager;
-import edu.mu.hotel.rooms.StandardRoom;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
