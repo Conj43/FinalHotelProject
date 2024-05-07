@@ -3,7 +3,7 @@ Group AA
 Colin Buchheit, Kymani Scott, Drew Distler and Connor Joyce
 
 Group AA's Hotel Manager
-This application was made for a hotel's front desk staff to more efficiently keep track of customers and to perform the day to day operations that they encounter. This was primarily built with the idea that the front desk worker or receptionist would have access to it via a computer command line. The application supports many features which are listed below. There were four team members during the development of this application and each persons individual features are also listed.  
+This application was made for a hotel's front desk staff to more efficiently keep track of customers and to perform the day to day operations that they encounter. This was primarily built with the idea that the front desk worker or receptionist would have access to it via a computer command line. There is also functionality built in to where the customer themselves could access the program and perform tasks. The application supports many features which are listed below. There were four team members during the development of this application and each persons individual features are also listed.  
 
 What we used to create this project:
 - Language: Java 21
