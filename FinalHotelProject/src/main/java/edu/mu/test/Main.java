@@ -126,12 +126,13 @@ public class Main {
         boolean isRewardsMember = askYesNoQuestion("Would you like to become a rewards member? (y/n): ");
 
         Customer newCustomer = new Customer(firstName, lastName, email, phoneNum, address, birthdate, age, isRewardsMember, 0, cardNum);
-        CustomerDBSingleton customerDB = CustomerDBSingleton.getInstance(); //get instance of customer db singleton
-        customerDB.addCustomer(newCustomer); //use it to add customer and save database
-        customerDB.saveDatabase();
         if (isRewardsMember) { //if they chose to be rewards member, tell them how it works
             LoyaltyMemberSignUp.signUp(newCustomer);
         }
+        CustomerDBSingleton customerDB = CustomerDBSingleton.getInstance(); //get instance of customer db singleton
+        customerDB.addCustomer(newCustomer); //use it to add customer and save database
+        customerDB.saveDatabase();
+        
         //make sure they remember their customer id
         System.out.println("\n\nCongratulations! You have created a profile with us. Your CustomerID is " + newCustomer.getCustomerID() + ". Make sure you remember it if you ever stay with us again!\n\n");
         //set our customer to the new customer so we can use it in other methods
@@ -176,7 +177,7 @@ public class Main {
     private static void makeReservation(int customerID) {
     	String roomType;
         while (true) {
-            System.out.print("Enter room type (Standard, Deluxe, Suite or Conference): ");
+            System.out.print("Enter room type (Standard, Deluxe, Suite or Conference. Make sure to type it exactly how you see it, it is case sensitive.): ");
             roomType = scanner.next(); //get room type they want
             String lower = roomType.trim().toLowerCase(); //make it so it isnt case sensitive
             
@@ -322,7 +323,7 @@ public class Main {
  * prompts user for date range and tells them if there is availability or not
  */
     private static void checkAvailability() {
-        System.out.print("Enter room type to check (Standard, Deluxe, Suite, Conference): "); //get room type
+        System.out.print("Enter room type to check (Standard, Deluxe, Suite, Conference. Make sure to type it exactly how you see it, it is case sensitive.): "); //get room type
         String roomType = scanner.next();
         
         System.out.print("Enter check-in date (YYYY-MM-DD): "); //get check in and out date
