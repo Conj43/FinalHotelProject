@@ -1,1 +1,27 @@
-null
+[
+  {
+    "reservationId": 1,
+    "customerId": 53,
+    "checkInDate": "2024-05-06",
+    "checkOutDate": "2024-05-09",
+    "roomTypeName": "Standard Room",
+    "roomBasePrice": 100.0,
+    "roomNumber": 100,
+    "isRoomOccupied": false,
+    "amenities": {
+      "TV": true,
+      "Breakfast": true,
+      "Wifi": true
+    },
+    "isActive": true,
+    "accessCode": "Guest has not checked in yet.",
+    "isKeyCardActive": false,
+    "serviceRequests": [
+      {
+        "requestType": "N/A",
+        "quantity": 0,
+        "notes": "N/A"
+      }
+    ]
+  }
+]

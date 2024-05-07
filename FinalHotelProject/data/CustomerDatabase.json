@@ -635,5 +635,57 @@
     "isRewardsMember": true,
     "rewardPoints": 75,
     "cardNum": "4567890123"
+  },
+  {
+    "customerID": 50,
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john@example.com",
+    "phoneNum": "123456789",
+    "address": "123 Main St",
+    "birthDate": "1990-01-01",
+    "age": 30,
+    "isRewardsMember": true,
+    "rewardPoints": 100,
+    "cardNum": "1234567890"
+  },
+  {
+    "customerID": 51,
+    "firstName": "Alice",
+    "lastName": "Smith",
+    "email": "alice@example.com",
+    "phoneNum": "5551234567",
+    "address": "789 Elm St",
+    "birthDate": "1988-12-15",
+    "age": 33,
+    "isRewardsMember": true,
+    "rewardPoints": 150,
+    "cardNum": "9876543210"
+  },
+  {
+    "customerID": 52,
+    "firstName": "Bob",
+    "lastName": "Brown",
+    "email": "bob@example.com",
+    "phoneNum": "1112223333",
+    "address": "321 Maple St",
+    "birthDate": "1975-08-20",
+    "age": 48,
+    "isRewardsMember": true,
+    "rewardPoints": 75,
+    "cardNum": "4567890123"
+  },
+  {
+    "customerID": 53,
+    "firstName": "test",
+    "lastName": "test",
+    "email": "test",
+    "phoneNum": "123",
+    "address": "123",
+    "birthDate": "2024-05-06",
+    "age": 0,
+    "isRewardsMember": true,
+    "rewardPoints": 20,
+    "cardNum": "123"
   }
 ]
