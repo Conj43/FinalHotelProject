@@ -3,21 +3,12 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import edu.mu.customer.Customer;
-import edu.mu.hotel.Reservation;
-import edu.mu.hotel.ReservationManager;
 import edu.mu.hotel.ServiceRequest;
-import edu.mu.hotel.rooms.RoomType;
-import edu.mu.hotel.rooms.StandardRoom;
 import edu.mu.test.Main;
 
 public class MainTest {
@@ -49,13 +40,13 @@ public class MainTest {
        //create reservation and customer
         Customer customer = new Customer("Jack", "James", "123", "123", "123",
         		"123", 5, true, 0,"123");
-        Reservation reservation = createDummyReservation();
+
        
 
         // prepare scanner with test input y
         ByteArrayInputStream inContent = new ByteArrayInputStream("y".getBytes());
         System.setIn(inContent);
-        Scanner scanner = new Scanner(System.in);
+
 
         //call method
         Main.payCustomerBill(customer, 1);
@@ -85,9 +76,7 @@ public class MainTest {
 
     
     
-    private Reservation createDummyReservation() {
-        return ReservationManager.getInstance().createReservation(1, "Standard", "2024-07-01", "2024-07-05", new ArrayList<>());
-    }
+    
     
     
     

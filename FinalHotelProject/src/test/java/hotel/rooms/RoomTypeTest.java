@@ -9,8 +9,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class RoomTypeTest {
